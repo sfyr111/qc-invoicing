@@ -1,10 +1,10 @@
 <template>
   <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
     <div>
-
+      <!-- 顶部代码 -->
         <q-c-header></q-c-header>
 
-        <q-c-menu></q-c-menu>
+        <q-c-menu @side-bar-select="sideBarSelect"></q-c-menu>
 
         <div class="content">
           <router-view></router-view>
@@ -18,6 +18,14 @@
     components: {
       QCHeader,
       QCMenu,
+    },
+
+    methods: {
+      sideBarSelect (index) {
+        this.$router.push({
+          name: index
+        })
+      }
     }
   }
 </script>
@@ -30,7 +38,7 @@
     top: 70px;
     bottom:0;
     width: auto;
-    padding:40px;
+    padding: 16px;
     box-sizing: border-box;
     overflow-y: scroll;
   }

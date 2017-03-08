@@ -11,7 +11,7 @@ const getters = {
 }
 
 const actions = {
-  resume ({commit}, opt) {
+  productList ({commit}, opt) {
     let params = {
       type: opt.type,
       url: opt.url,
