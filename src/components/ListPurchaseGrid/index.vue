@@ -139,16 +139,9 @@
 		        fixed="right"
 		        width="220px">
 		        <template scope="scope">
-		          <!-- <el-button
-		            size="small"
-		            @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
 		          <el-button
 		            size="small"
 		            @click="handleInfo(scope.$index, scope.row)">查看详情</el-button>
-		          <!-- <el-button
-		            size="small"
-		            type="danger"
-		            @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
 		        </template>
 		      </el-table-column>
 		    </el-table>
@@ -216,13 +209,6 @@ export default {
     }
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-
     //	查看详情
     handleInfo(index, row) {
       console.log(index, row)

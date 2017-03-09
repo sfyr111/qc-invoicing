@@ -17,12 +17,16 @@ import ListPurchase from './purchase/ListPurchase.vue'
 import ListReturn from './purchase/ListReturn.vue'
 import Review from './purchase/Review.vue'
 import VendorList from './vendor/VendorList.vue'
+import VendorModel from './vendor/VendorModel.vue'
 import UserList from './system/UserList.vue'
 import RoleList from './system/RoleList.vue'
 import MenuList from './system/MenuList.vue'
 import DeptList from './system/DeptList.vue'
 import InvProDetail from './storage/InvProDetail'
 import ListPurchaseDetail from './purchase/ListPurchaseDetail'
+import ListReturnDetail from './purchase/ListReturnDetail'
+import AddPurchaseOrder from './purchase/AddPurchaseOrder'
+import AddReturnOrder from './purchase/AddReturnOrder'
 
 const components = {
   Main,
@@ -44,12 +48,16 @@ const components = {
   ListReturn,
   Review,
   VendorList,
+  VendorModel,
   UserList,
   RoleList,
   MenuList,
   DeptList,
   InvProDetail,
-  ListPurchaseDetail
+  ListPurchaseDetail,
+  ListReturnDetail,
+  AddPurchaseOrder,
+  AddReturnOrder
 };
 
 export default components;

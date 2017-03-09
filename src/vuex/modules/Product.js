@@ -23,6 +23,19 @@ const actions = {
     util.getMyrequest(params).then(function (resp) {
       commit(types.PRODUCT_LIST, resp.data)
     })
+  },
+  productAdd ({commit}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+
+    util.getMyrequest(params).then(function (resp) {
+      // commit(types.PRODUCT_LIST, resp.data)
+    })
   }
 }
 

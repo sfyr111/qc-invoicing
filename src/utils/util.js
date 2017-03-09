@@ -115,8 +115,8 @@ const util = {
   diffTime: function(start, end) {
   	var start = new Date(start),
   		end = new Date(end);
-	var diff = end.getTime() - start.getTime();
-	var days=Math.floor(diff/(24*3600*1000));
+    var diff = end.getTime() - start.getTime();
+    var days=Math.floor(diff/(24*3600*1000));
 
     //计算出小时数
     var leave1=diff%(24*3600*1000);    //计算天数后剩余的毫秒数
@@ -180,6 +180,14 @@ const util = {
   	start = +new Date(y, m, d)
 
   	return Math.floor((end - start) / 1000 / (24 * 60 * 60))
+  },
+  // 将标准时间转换为字符串
+  getDateStr: function (date) {
+    var dateStr = new Date(date);
+    var y = dateStr.getFullYear();
+    var m = dateStr.getMonth() + 1;
+    var d = dateStr.getDate();
+    return y + '-' + m + '-' + d;
   },
 }
 

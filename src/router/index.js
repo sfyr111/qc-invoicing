@@ -97,11 +97,31 @@ export default new Router({
           name: 'listPurchaseDetail',
           component: page.ListPurchaseDetail
         },
+        //  退货列表
         {
           path: '/listReturn',
           name: 'listReturn',
           component: page.ListReturn
-        },{
+        },
+        //  退货列表详情
+        {
+          path: '/listReturnDetail',
+          name: 'listReturnDetail',
+          component: page.ListReturnDetail
+        },
+        //  新增采购单
+        {
+          path: '/addPurchaseOrder',
+          name: 'addPurchaseOrder',
+          component: page.AddPurchaseOrder
+        },
+        //  新增退货单
+        {
+          path: '/addReturnOrder',
+          name: 'addReturnOrder',
+          component: page.AddReturnOrder
+        },
+        {
           path: '/review',
           name: 'review',
           component: page.Review
@@ -109,6 +129,18 @@ export default new Router({
           path: '/vendorList',
           name: 'vendorList',
           component: page.VendorList
+        },{
+          path: '/vendorAdd',
+          name: 'vendorAdd',
+          component: page.VendorModel
+        },{
+          path: '/vendorEdit',
+          name: 'vendorEdit',
+          component: page.VendorModel
+        },{
+          path: '/vendorInfo',
+          name: 'vendorInfo',
+          component: page.VendorModel
         },{
           path: '/userList',
           name: 'userList',

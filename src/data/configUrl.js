@@ -4,9 +4,65 @@ let rootPath = process.env.NODE_ENV === "production" ? proRootPath : devRootPath
 let imgPath = process.env.NODE_ENV === "production" ? "http://jl.17cai.com/static/img/" : "http://127.0.0.1/static/img/";
 const configUrl = {
   imgPath,
-  //	选择工作地址
+  //	产品列表
   productList: {
     dataUrl: rootPath + 'product/getProductList'
+  },
+  // 新增产品
+  productAdd: {
+    dataUrl: rootPath + 'product/addProduct'
+  },
+  // 修改产品
+  productEdit: {
+    dataUrl: rootPath + 'product/updateProduct'
+  },
+  // 查看商品
+  productDetail: {
+    dataUrl: rootPath + 'product/getProductDetail'
+  },
+  // CategoryList
+  categoryList: {
+    dataUrl: rootPath + 'product/getCategoryForSelect'
+  },
+  // supplierlist
+  supplierlist: {
+    dataUrl: rootPath + 'supplier/getSupplierByParams'
+  },
+  // supplierDel
+  supplierDel: {
+    dataUrl: rootPath + 'supplier/deleteSupplier'
+  },
+  // supplierInf
+  supplierInf: {
+    dataUrl: rootPath + 'supplier/getSupplierDetail'
+  },
+  // supplierEdit
+  supplierEdit: {
+    dataUrl: rootPath + 'supplier/editSupplier'
+  },
+  // supplierAdd
+  supplierAdd: {
+    dataUrl: rootPath + 'supplier/addSupplier'
+  },
+  // supplierContractAdd
+  supplierContractAdd: {
+    dataUrl: rootPath + 'supplier/addSupplierContract'
+  },
+  // supplierContractEdit
+  supplierContractEdit: {
+    dataUrl: rootPath + 'supplier/editSupplierContract'
+  },
+  // supplierContractDel
+  supplierContractDel: {
+    dataUrl: rootPath + 'supplier/deleteSupplierContract'
+  },
+  // supplierContractDown
+  supplierContractDown: {
+    dataUrl: rootPath + 'supplier/downloadSupplierContract'
+  },
+  // supplierContractList
+  supplierContractList: {
+    dataUrl: rootPath + 'supplier/getSupplierContractBySupplierId'
   },
 };
 

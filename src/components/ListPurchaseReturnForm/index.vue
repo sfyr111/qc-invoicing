@@ -3,7 +3,7 @@
 		<el-form ref="form" :model="form" label-width="100px">
 		  <el-row :gutter="20">
 		    <el-col :span="6">
-		    	<el-form-item label="采购单号:">
+		    	<el-form-item label="退货单号:">
 		    	    <el-input v-model="form.name"></el-input>
 		    	</el-form-item>
 		    </el-col>
@@ -25,7 +25,7 @@
 		    </el-col>
 
 		    <el-col :span="6">
-		    	<el-form-item label="入库状态：">
+		    	<el-form-item label="制单人：">
 			    	<el-select v-model="form.NO_one_type" placeholder="">
 			    		<el-option label="全部" value="0"></el-option>
 	    	      <el-option label="已入库" value="1"></el-option>
@@ -37,7 +37,7 @@
 
   	  <el-row :gutter="20">
   	    <el-col :span="6">
-  	    	<el-form-item label="付款状态：">
+  	    	<el-form-item label="出库状态：">
   		    	<el-select v-model="form.NO_one_type" placeholder="">
       	      <el-option label="全部" value="shanghai"></el-option>
       	      <el-option label="未请款" value="beijing"></el-option>
@@ -47,41 +47,21 @@
       	  </el-form-item>
   	    </el-col>
 
-  	    <el-col :span="8">
-  	    	<el-form-item label="活动时间">
-  	    	   <el-col :span="11">
-  	    	     <el-date-picker
-    	           v-model="startDate"
-    	           type="datetime"
-    	           placeholder="选择日期时间"
-    	           align="right"
-    	           :picker-options="pickerOptions1">
-  	    	      </el-date-picker>
-  	    	   </el-col>
-  	    	   <el-col class="line" :span="2">-</el-col>
-  	    	   <el-col :span="11">
-   	    	     <el-date-picker
-     	           v-model="endDate"
-     	           type="datetime"
-     	           placeholder="选择日期时间"
-     	           align="right"
-     	           :picker-options="pickerOptions2">
-   	    	      </el-date-picker>
-  	    	   </el-col>
-  	    	 </el-form-item>
-  	    </el-col>
   	    <el-col :span="4">
-  	    	<el-form-item label="制单人：">
+  	    	<el-form-item label="退款状态：">
   		    	<el-select v-model="form.NO_one_type" placeholder="">
-  		    	  <el-option label="全部" value="0"></el-option>
-      	      <el-option label="正常" value="1"></el-option>
-      	      <el-option label="缺货" value="2"></el-option>
+      	      <el-option label="待退款" value="1"></el-option>
+      	      <el-option label="已退款" value="2"></el-option>
       	    </el-select>
       	  </el-form-item>
   	    </el-col>
+
+  	    <el-col :span="8">&nbsp;</el-col>
+
+
   	    <el-col :span="6" class="btn">
   	    	  <el-button type="primary" @click="onSubmit">查询</el-button>
-  	    	  <el-button type="info" @click="addPurchaseOrder">新建采购单</el-button>
+  	    	  <el-button type="info" @click="addReturnOrder">新建退货单</el-button>
   	    </el-col>
   	  </el-row>
 		</el-form>
@@ -175,9 +155,9 @@ export default {
 			console.log(this.form)
 		},
 
-    //  新增采购单
-    addPurchaseOrder () {
-      this.$emit('add-purchase-order')
+    //  新建退货单
+    addReturnOrder  () {
+      this.$emit('add-return-order')
     }
 	}
 }

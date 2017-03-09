@@ -1,22 +1,22 @@
 <template>
-  <div>
+  <div class="minh600">
     <el-table
       :data="tableData"
       border
       style="width: 100%"
       fit
-      v-loading="loading"
+      v-loading="loadingData"
       element-loading-text="拼命加载中">
       <el-table-column
-        label="商品编码"
-        width="180"
+        label="供应商编码"
+        width="120"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.code }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="商品名称"
+        label="供应商名称"
         width="180"
         align="center">
         <template scope="scope">
@@ -24,100 +24,116 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="商品分类"
+        label="供应商地址"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.address }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="品牌"
+        label="供应商电话"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="商品版本"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品SKU"
+        label="传真"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.fax }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品69码"
+        label="邮箱"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.email }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品单位"
-        width="180"
+        label="联系人"
+        width="100"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.contacts }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="销售价格"
+        label="联系人电话"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.contactsPhone }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="采购含税价格"
+        label="支付方式"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.payMethod }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="采购不含税价格"
+        label="支付约定"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.payAppoint }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="库存数量"
+        label="税务证登记号"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.taxNumber }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="创建时间"
+        label="开户银行"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.openBank }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="账户"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.acctNo }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="开户人"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.openAcctPerson }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="账期"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.paymentDays }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -135,7 +151,7 @@
           <el-button
             size="small"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -143,69 +159,28 @@
 </template>
 <script>
   export default {
+  	props: {
+      loadingData: {
+      	type: Boolean,
+        default: false
+      },
+      tableData: {
+      	type: Array,
+        default: [],
+        required: true
+      }
+    },
     data() {
       return {
-        tableData: [
-          {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }],
-        loading: true,
-        KV: [{
-          text: 'x1',
-          prop: 'address'
-        },{
-          text: 'x2',
-          prop: 'date'
-        },{
-          text: 'x2',
-          prop: 'date'
-        }]
+
       }
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
+        this.$emit('edit-row', row)
       },
-      handleDelete(index, row) {
-        console.log(index, row);
+      handleDelete(row) {
+      	this.$emit('del-row', row.id)
       },
       handleInfo(index, row) {
         console.log(index, row);

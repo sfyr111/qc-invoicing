@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 采购列表查询 -->
-    <list-purchase-form></list-purchase-form>
+    <list-purchase-form @add-purchase-order="addPurchaseOrder"></list-purchase-form>
 
     <!-- tab表格 -->
     <list-purchase-grid @view-detail="viewDetail"></list-purchase-grid>
@@ -45,6 +45,13 @@ export default {
     	this.$router.push({
     		name: 'listPurchaseDetail'
     	})
+    },
+
+    //  新建采购单
+    addPurchaseOrder () {
+      this.$router.push({
+        name: 'addPurchaseOrder'
+      })
     }
 	}
 }

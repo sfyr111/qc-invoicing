@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="minh600">
     <el-table
       :data="tableData"
       border

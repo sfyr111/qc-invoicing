@@ -38,6 +38,7 @@
     top: 70px;
     bottom:0;
     width: auto;
+    min-width: 1600px;
     padding: 16px;
     box-sizing: border-box;
     overflow-y: scroll;

@@ -73,7 +73,7 @@
       },
       addProduct () {
   			this.$router.push({
-          name: 'productModel'
+          name: 'productModel',
         })
       }
     }
