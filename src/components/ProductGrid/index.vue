@@ -5,14 +5,14 @@
       border
       style="width: 100%"
       fit
-      v-loading="loading"
+      v-loading.body="loadingData"
       element-loading-text="拼命加载中">
       <el-table-column
         label="商品编码"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.productId }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -20,7 +20,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.productName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -28,7 +28,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.firstCategoryName }}-{{ scope.row.secondCategoryName }}-{{ scope.row.thirdCategoryName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -36,16 +36,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="商品版本"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.brand }}</span>
         </template>
       </el-table-column>
 
@@ -54,7 +45,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.skuCode }}</span>
         </template>
       </el-table-column>
 
@@ -63,7 +54,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.productCode }}</span>
         </template>
       </el-table-column>
 
@@ -72,16 +63,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="销售价格"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.unitCn }}</span>
         </template>
       </el-table-column>
 
@@ -90,7 +72,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.priceTax }}</span>
         </template>
       </el-table-column>
 
@@ -99,7 +81,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.priceNoTax }}</span>
         </template>
       </el-table-column>
 
@@ -108,7 +90,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.productStock }}</span>
         </template>
       </el-table-column>
 
@@ -117,7 +99,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.createDate }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -128,14 +110,7 @@
         <template scope="scope">
           <el-button
             size="small"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
-            size="small"
-            @click="handleInfo(scope.$index, scope.row)">查看</el-button>
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleEdit(scope.$index, scope.row)">编辑&查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -143,72 +118,22 @@
 </template>
 <script>
   export default {
+  	props: {
+      tableData: {
+      	type: Array
+      },
+      loadingData: {
+      	type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
-        tableData: [
-        	{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
-        loading: true,
-        KV: [{
-        	text: 'x1',
-          prop: 'address'
-        },{
-          text: 'x2',
-          prop: 'date'
-        },{
-          text: 'x2',
-          prop: 'date'
-        }]
       }
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
-      handleInfo(index, row) {
-        console.log(index, row);
+      	this.$emit('product-edit', row)
       }
     }
   }

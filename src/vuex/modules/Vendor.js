@@ -27,7 +27,7 @@ const actions = {
       commit(types.VENDOR_LIST, resp.data.rows||[])
     })
   },
-  vendorAdd ({commit}, opt) {
+  vendorSave ({commit}, opt) {
     let params = {
       type: opt.type,
       url: opt.url,
@@ -53,46 +53,7 @@ const actions = {
       // commit(types.PRODUCT_LIST, resp.data)
     })
   },
-  vendorEdit ({commit}, opt) {
-    let params = {
-      type: opt.type,
-      url: opt.url,
-      data: opt.data,
-      success: opt.success,
-      fail: opt.fail
-    }
-
-    util.getMyrequest(params).then(function (resp) {
-      // commit(types.PRODUCT_LIST, resp.data)
-    })
-  },
   vendorDel ({commit}, opt) {
-    let params = {
-      type: opt.type,
-      url: opt.url,
-      data: opt.data,
-      success: opt.success,
-      fail: opt.fail
-    }
-
-    util.getMyrequest(params).then(function (resp) {
-      // commit(types.PRODUCT_LIST, resp.data)
-    })
-  },
-  contractAdd ({commit}, opt) {
-    let params = {
-      type: opt.type,
-      url: opt.url,
-      data: opt.data,
-      success: opt.success,
-      fail: opt.fail
-    }
-
-    util.fileUpload(params).then(function (resp) {
-      // commit(types.PRODUCT_LIST, resp.data)
-    })
-  },
-  contractEdit ({commit}, opt) {
     let params = {
       type: opt.type,
       url: opt.url,

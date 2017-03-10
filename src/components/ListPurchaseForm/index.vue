@@ -4,32 +4,32 @@
 		  <el-row :gutter="20">
 		    <el-col :span="6">
 		    	<el-form-item label="采购单号:">
-		    	    <el-input v-model="form.name"></el-input>
+		    	    <el-input v-model="form.serialNumber"></el-input>
 		    	</el-form-item>
 		    </el-col>
 
 		    <el-col :span="6">
 		    	<el-form-item label="供应商：">
-		    	    <el-input v-model="form.proName"></el-input>
+		    	    <el-input v-model="form.supplierName"></el-input>
 		    	</el-form-item>
 		    </el-col>
 
 		    <el-col :span="6">
 		    	<el-form-item label="审核状态：">
-			    	<el-select v-model="form.NO_one_type" placeholder="">
-	    	      <el-option label="全部" value="0"></el-option>
+			    	<el-select v-model="form.flowStatus" placeholder="">
 	    	      <el-option label="待审核" value="1"></el-option>
-	    	      <el-option label="未通过" value="2"></el-option>
+	    	      <el-option label="审核通过" value="2"></el-option>
+	    	      <el-option label="未通过" value="3"></el-option>
+              <el-option label="废弃" value="4"></el-option>
 	    	    </el-select>
 	    	  </el-form-item>
 		    </el-col>
 
 		    <el-col :span="6">
 		    	<el-form-item label="入库状态：">
-			    	<el-select v-model="form.NO_one_type" placeholder="">
-			    		<el-option label="全部" value="0"></el-option>
-	    	      <el-option label="已入库" value="1"></el-option>
-	    	      <el-option label="未入库" value="2"></el-option>
+			    	<el-select v-model="form.inStatus" placeholder="">
+			    		<el-option label="未入库" value="1"></el-option>
+	    	      <el-option label="已入库" value="3"></el-option>
 	    	    </el-select>
 	    	  </el-form-item>
 		    </el-col>
@@ -38,22 +38,21 @@
   	  <el-row :gutter="20">
   	    <el-col :span="6">
   	    	<el-form-item label="付款状态：">
-  		    	<el-select v-model="form.NO_one_type" placeholder="">
-      	      <el-option label="全部" value="shanghai"></el-option>
-      	      <el-option label="未请款" value="beijing"></el-option>
-      	      <el-option label="已付款" value="shanghai"></el-option>
-      	      <el-option label="待付款" value="beijing"></el-option>
+  		    	<el-select v-model="form.payStatus" placeholder="">
+      	      <el-option label="未请款" value="1"></el-option>
+              <el-option label="待付款" value="2"></el-option>
+      	      <el-option label="已付款" value="3"></el-option>
       	    </el-select>
       	  </el-form-item>
   	    </el-col>
 
   	    <el-col :span="8">
-  	    	<el-form-item label="活动时间">
+  	    	<el-form-item label="建单时间：">
   	    	   <el-col :span="11">
   	    	     <el-date-picker
-    	           v-model="startDate"
+    	           v-model="form.startDate"
     	           type="datetime"
-    	           placeholder="选择日期时间"
+    	           placeholder="/年/月/日"
     	           align="right"
     	           :picker-options="pickerOptions1">
   	    	      </el-date-picker>
@@ -61,9 +60,9 @@
   	    	   <el-col class="line" :span="2">-</el-col>
   	    	   <el-col :span="11">
    	    	     <el-date-picker
-     	           v-model="endDate"
+     	           v-model="form.endDate"
      	           type="datetime"
-     	           placeholder="选择日期时间"
+     	           placeholder="/年/月/日"
      	           align="right"
      	           :picker-options="pickerOptions2">
    	    	      </el-date-picker>
@@ -72,11 +71,7 @@
   	    </el-col>
   	    <el-col :span="4">
   	    	<el-form-item label="制单人：">
-  		    	<el-select v-model="form.NO_one_type" placeholder="">
-  		    	  <el-option label="全部" value="0"></el-option>
-      	      <el-option label="正常" value="1"></el-option>
-      	      <el-option label="缺货" value="2"></el-option>
-      	    </el-select>
+            <el-input v-model="form.creator"></el-input>
       	  </el-form-item>
   	    </el-col>
   	    <el-col :span="6" class="btn">
@@ -100,17 +95,19 @@
 </style>
 
 <script>
+import util from '../../utils/util'
 export default {
 	data () {
 		return {
 			form: {
-				proNum: '',			//商品编码
-				proName: '',		//	商品名称
-				NO_one_type: '',		// 一级分类
-				NO_two_type: '',		// 二级分类
-				invRangeStart: '',		//	库存范围  开始
-				invRangeEnd: '',			//	结束
-				proSKU: '',						//	商品SKU
+				serialNumber: '',			      //  采购单号
+				supplierName: '',		       //	供应商名称
+				flowStatus: '',		         // 审核状态 1.待审核 2.审核通过 3.未通过 4.废弃
+				inStatus: '',		           // 入库状态 1.未入库 3.已入库
+				payStatus: '',		        //	付款状态 1.未情况 2.待付款 3.已付款
+				startDate: '',            //  建单开始日期
+        endDate: '',               //  建单结束日期
+        creator: '',               // 制单人
 			},
 			pickerOptions1: {
         shortcuts: [
@@ -164,15 +161,30 @@ export default {
           }
         ]					//		日历开始日期					//	结束日期
 			},
-			startDate: '',
-			endDate: ''
 		}
 	},
 
 	methods: {
 		//	查询
 		onSubmit () {
-			console.log(this.form)
+      //  选择结束日期比开始日期小 则相反对调
+      if (this.form.startDate && this.form.endDate) {
+        if (+new Date(this.form.endDate) < +new Date(this.form.startDate)) {
+          this.date = this.form.startDate
+          this.form.startDate = this.form.endDate
+          this.form.endDate = this.date
+        }
+      }
+      //  如果日期不为空
+      if (this.form.startDate) {
+        this.form.startDate = util.getDateStr(this.form.startDate)
+      }
+
+      if (this.form.endDate) {
+        this.form.endDate = util.getDateStr(this.form.endDate)
+      }
+
+      this.$emit('on-check', this.form)
 		},
 
     //  新增采购单

@@ -1,10 +1,14 @@
 <template>
   <div>
     <product-form @form-submit="search" @add-product="addProduct"></product-form>
-    <product-grid></product-grid>
+    <product-grid
+      :table-data="list"
+      :loading-data="loadingData"
+      @product-del="productDel"
+      @product-edit="productEdit"></product-grid>
     <el-pagination
       layout="prev, pager, next"
-      :total="1000"
+      :total="total"
       @current-change="changePage">
     </el-pagination>
   </div>
@@ -12,10 +16,16 @@
 <script>
   import configUrl from '../../data/configUrl'
   import { ProductForm, ProductGrid } from '../../components'
+  import { mapGetters } from 'vuex'
   export default {
   	components: {
       ProductForm,
       ProductGrid
+    },
+    computed: {
+      ...mapGetters({
+      	list: 'getProductList'
+      })
     },
     data () {
   		return {
@@ -29,8 +39,10 @@
           thirdCategoryId: '',
           status: ''
         },
-        page: 1,
-        limit: 10
+        loadingData: false,
+        pageNo: 1,
+        pageSize: 10,
+        total: 0
       }
     },
     created () {
@@ -38,6 +50,10 @@
     },
     methods: {
   		initGrid () {
+  			if (this.loadingData) {
+  				return
+        }
+  			let _this = this
   			let data = {
           productId: this.form.productId || '',
           skuCode: this.form.skuCode || '',
@@ -47,18 +63,26 @@
           secondCategoryId: this.form.secondCategoryId || '',
           thirdCategoryId: this.form.thirdCategoryId || '',
           status: this.form.status || '',
-          page: this.page,
-          limit: this.limit
+          pageNo: this.pageNo,
+          pageSize: this.pageSize
         };
+  			this.loadingData=true
   			let opt = {
   				url: configUrl.productList.dataUrl,
           data: data,
           type: 'post',
           success: function (resp) {
+            _this.loadingData=false
+            _this.total = resp.data.total
             console.log(resp)
           },
           fail: function (resp) {
-            console.log(resp)
+            _this.loadingData=false
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            });
           }
         };
   			this.$store.dispatch('productList', opt)
@@ -68,13 +92,30 @@
         this.initGrid()
       },
       changePage (page) {
-  			this.page = page
+  			this.pageNo = page
   			this.initGrid()
       },
       addProduct () {
-  			this.$router.push({
+        this.$router.push({
           name: 'productModel',
+          query: {
+            pageType: 'add'
+          }
         })
+      },
+      productEdit (row) {
+        this.$router.push({
+          name: 'productModel',
+          query: {
+            pageType: 'edit',
+            editId: row.productId
+          }
+        })
+      },
+      productDel(row) {
+  			let opt = {
+  				url: configUrl.productDetail
+        }
       }
     }
   }

@@ -19,12 +19,12 @@ const actions = {
       success: opt.success,
       fail: opt.fail
     }
-
+    state.productList=[]
     util.getMyrequest(params).then(function (resp) {
-      commit(types.PRODUCT_LIST, resp.data)
+      commit(types.PRODUCT_LIST, resp.data.rows || [])
     })
   },
-  productAdd ({commit}, opt) {
+  productInfo ({commit}, opt) {
     let params = {
       type: opt.type,
       url: opt.url,
@@ -34,6 +34,19 @@ const actions = {
     }
 
     util.getMyrequest(params).then(function (resp) {
+      // commit(types.PRODUCT_LIST, resp.data.rows || [])
+    })
+  },
+  productSave ({commit}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+
+    util.getMyCompRequest(params).then(function (resp) {
       // commit(types.PRODUCT_LIST, resp.data)
     })
   }

@@ -31,6 +31,10 @@ import ListPurchaseReturnGrid from './ListPurchaseReturnGrid/index.vue'
 import listReturnDetailGrid from './listReturnDetailGrid'
 import listReturnOutRecord from './listReturnOutRecord'
 import PurchaseReturnHead from './PurchaseReturnHead'
+import PurchaseReturnGrid from './PurchaseReturnGrid'
+import AddPurchaseTotal from './AddPurchaseTotal'
+import AddPurchaseWriteMsg from './AddPurchaseWriteMsg'
+import SelectProFrame from './SelectProFrame'
 
 export {
   QCHeader,
@@ -65,6 +69,10 @@ export {
   ListPurchaseReturnGrid,
   listReturnDetailGrid,
   listReturnOutRecord,
-  PurchaseReturnHead
+  PurchaseReturnHead,
+  PurchaseReturnGrid,
+  AddPurchaseTotal,
+  AddPurchaseWriteMsg,
+  SelectProFrame
 }
 

@@ -64,6 +64,10 @@ const configUrl = {
   supplierContractList: {
     dataUrl: rootPath + 'supplier/getSupplierContractBySupplierId'
   },
+  //  采购管理 商品列表
+  listPurchaseUrl: {
+    dataUrl: rootPath + 'purchase/purchase_order_list'
+  }
 };
 
 export default configUrl

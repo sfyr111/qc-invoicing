@@ -1,6 +1,6 @@
 <template>
   <div class="p_form">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="100px">
       <el-form-item>
         <el-col :span="20">
           &nbsp;

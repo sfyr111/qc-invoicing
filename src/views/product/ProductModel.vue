@@ -2,9 +2,11 @@
   <div>
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="商品基本信息" name="first">
-        <product-model-base></product-model-base>
+        <product-model-base
+        :submit-suc="submitSuc"
+        :product-id="productId"></product-model-base>
       </el-tab-pane>
-      <el-tab-pane :disabled="true" label="供应商价格信息" name="second">
+      <el-tab-pane :disabled="disableSecond" label="供应商价格信息" name="second">
         <product-model-price></product-model-price>
       </el-tab-pane>
     </el-tabs>
@@ -20,7 +22,24 @@
         categoryListFirst: 'getCategoryListFirst',
         categoryListSecond: 'getCategoryListSecond',
         categoryListThird: 'getCategoryListThird'
-      })
+      }),
+      disableSecond () {
+        if (this.pageType==='add' && !this.addSuc) {
+          return true
+        }
+        if (this.pageType==='add' && this.addSuc) {
+          return false
+        }
+        return false
+      },
+      productId () {
+        if (this.id) {
+          return this.id.toString()
+        }
+        if (this.editId) {
+          return this.editId.toString()
+        }
+      }
     },
     components: {
       ProductModelBase,
@@ -28,171 +47,48 @@
     },
     data() {
       return {
-      	// 表单数据
-        ruleForm: {
-          productName: '',
-          categoryNo: '',
-          firstCategoryId: '',
-          secondCategoryId: '',
-          thirdCategoryId: '',
-          brand: '',
-          productUnit: '',
-          isSynchronize: true,
-          safeDays: '',
-          pac: '',
-          box: '',
-          car: '',
-          pacCode: '',
-          boxCode: '',
-          carCode: '',
-          productSku: [{
-            productVersion: '',
-            productCode: ''
-          }]
-        },
-        loadingFirst: false,
-        loadingSecond: false,
-        disabledSecond: true,
-        loadingThird: false,
-        disabledThird: true,
-        hasSubmit: false,
-        activeName: 'second',
-        // 校验
-        rules: {
-          productName: [
-            { required: true, message: '请填写商品名称', trigger: 'blur' },
-          ],
-          categoryNo: [
-            { required: true, message: '请填写三级分类编码', trigger: 'blur' }
-          ],
-          brand: [
-            { required: true, message: '请填写品牌', trigger: 'blur' }
-          ],
-          productUnit: [
-            { required: true, message: '请填写商品单位', trigger: 'blur' }
-          ],
-          safeDays: [
-            { required: true, message: '请填写保质期天数', trigger: 'blur' }
-          ]
-        }
+        activeName: 'first',
+        addSuc: false,
+        id: '',
+        editId: this.$route.query.editId,
+        pageType: this.$route.query.pageType || '',
       }
     },
     methods: {
-      handleClick () {
-
-      },
-  		// 提交
-      onSubmit(formName) {
-      	if (this.hasSubmit) {
-      		return
+      handleClick (tab, event) {
+        if (tab.name === 'second') {
+          if (this.hasLoad) {
+            return
+          }
+          this.initPrice()
         }
-        this.hasSubmit = true
+      },
+      submitSuc (resp) {
+        this.activeName = 'second'
+        if (resp.data) {
+          this.productId = resp.data.id
+        }
+        this.addSuc = true
+        this.initPrice()
+      },
+      initPrice () {
         let _this = this
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-            let opt = {
-              url: configUrl.productAdd.dataUrl,
-              type: 'post',
-              data: {
-
-              },
-              success: function (resp) {
-                _this.hasSubmit = false
-                console.log(resp)
-              },
-              fail: function (resp) {
-                _this.hasSubmit=false
-                console.log(resp)
-              }
-            };
-            this.$store.dispatch('productAdd', opt)
-          } else {
-            console.log('error submit!!');
-            return false;
+        let opt = {
+          url: configUrl.supplierContractList.dataUrl,
+          data: {
+            supplierId: this.supplierId
+          },
+          type: 'get',
+          success: function (resp) {
+            _this.hasLoad=true
+            console.log(resp)
+          },
+          fail: function (resp) {
+            console.log(resp)
           }
-        });
-      },
-      // 新增商品信号
-      addProductSku () {
-        this.ruleForm.productSku.push({
-          productVersion: '',
-          productCode: '',
-          key: Date.now()
-        });
-      },
-      // 删除商品型号
-      removeProductSku (index) {
-        if (index !== -1) {
-          this.ruleForm.productSku.splice(index, 1)
         }
-      },
-      remoteFirst () {
-      	console.log(11)
-      	let _this = this
-        this.loadingFirst = true;
-      	let opt = {
-          url: configUrl.categoryList.dataUrl,
-          type: 'post',
-          queryType: 'first',
-          data: {
-
-          },
-          success: function (resp) {
-          	_this.loadingFirst = false
-            _this.disabledSecond = false
-            console.log(resp)
-          },
-          fail: function (resp) {
-          	_this.loadingFirst=false
-            console.log(resp)
-          }
-        };
-      	this.$store.dispatch('categoryList', opt)
-      },
-      remoteSecond () {
-      	let _this = this
-        this.loadingSecond = true;
-        let opt = {
-          url: configUrl.categoryList.dataUrl,
-          type: 'post',
-          queryType: 'second',
-          data: {
-
-          },
-          success: function (resp) {
-          	_this.loadingSecond = false
-            console.log(resp)
-          },
-          fail: function (resp) {
-          	_this.loadingSecond=false
-            console.log(resp)
-          }
-        };
-        this.$store.dispatch('categoryList', opt)
-      },
-      remoteThird () {
-      	let _this = this
-        this.loadingThird = true;
-        let opt = {
-          url: configUrl.categoryList.dataUrl,
-          type: 'post',
-          queryType: 'third',
-          data: {
-
-          },
-          success: function (resp) {
-          	_this.loadingThird = false
-            _this.disabledThird = false
-            console.log(resp)
-          },
-          fail: function (resp) {
-          	_this.loadingThird=false
-            console.log(resp)
-          }
-        };
-        this.$store.dispatch('categoryList', opt)
-      },
+        this.$store.dispatch('supplierContractList', opt)
+      }
     }
   }
 </script>

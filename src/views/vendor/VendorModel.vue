@@ -36,7 +36,7 @@
       },
       supplierId () {
       	if (this.id) {
-      		return this.id
+      		return this.id+''
         }
         if (this.editId) {
           return this.editId+''
@@ -53,19 +53,26 @@
         addSuc: false,
         id: '',
         editId: this.$route.query.editId || '',
-        pageType: this.$route.query.pageType || ''
+        pageType: this.$route.query.pageType || '',
+        hasLoad: false
       }
     },
     methods: {
       handleClick (tab, event) {
       	if (tab.name === 'second') {
+      		if (this.hasLoad) {
+      			return
+          }
           this.initContract()
         }
       },
       onSubmit (resp) {
         this.activeName = 'second'
-        this.id = resp.data.id+''
+        if (resp.data) {
+          this.id = resp.data.id
+        }
         this.addSuc = true
+        this.initContract()
       },
       uploadSuc () {
         this.initContract()
@@ -74,13 +81,15 @@
       	this.initContract()
       },
       initContract () {
+      	let _this = this
         let opt = {
           url: configUrl.supplierContractList.dataUrl,
           data: {
-            supplierId: this.id || this.editId
+            supplierId: this.supplierId
           },
           type: 'get',
           success: function (resp) {
+            _this.hasLoad=true
             console.log(resp)
           },
           fail: function (resp) {

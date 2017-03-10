@@ -144,10 +144,7 @@
         <template scope="scope">
           <el-button
             size="small"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
-            size="small"
-            @click="handleInfo(scope.$index, scope.row)">查看</el-button>
+            @click="handleEdit(scope.$index, scope.row)">编辑&查看</el-button>
           <el-button
             size="small"
             type="danger"

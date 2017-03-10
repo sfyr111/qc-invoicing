@@ -26,13 +26,13 @@ const actions = {
 
     util.getMyrequest(params).then(function (resp) {
       if (opt.queryType == 'first') {
-        commit(types.CATEGORY_LIST_FIRST, resp.data)
+        commit(types.CATEGORY_LIST_FIRST, resp.data || [])
       }
       if (opt.queryType == 'second') {
-        commit(types.CATEGORY_LIST_SECOND, resp.data)
+        commit(types.CATEGORY_LIST_SECOND, resp.data || [])
       }
       if (opt.queryType == 'third') {
-        commit(types.CATEGORY_LIST_THIRD, resp.data)
+        commit(types.CATEGORY_LIST_THIRD, resp.data || [])
       }
     })
   }

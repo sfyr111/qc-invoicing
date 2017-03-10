@@ -189,6 +189,26 @@ const util = {
     var d = dateStr.getDate();
     return y + '-' + m + '-' + d;
   },
+
+  //	数组去重 将原数组去掉选中的数组   selectArr--选中数组  arr--原数组  key--去重比较字符串
+  getNewArr (selectArr, arr, key) {
+  	let newArr = []
+  	for (var i = 0; i < arr.length; i ++) {
+  		var push = true
+  		for (var j = 0; j < selectArr.length;j ++) {
+  			if (arr[i][key] === selectArr[j][key]) {
+  				push = false
+  				break;
+  			}
+  		}
+
+  		if (push) {
+  			newArr.push(arr[i])
+  		}
+  	}
+
+  	return newArr
+  }
 }
 
 export default util
