@@ -8,7 +8,8 @@
       @edit-row="editVendor"></vendor-grid>
     <el-pagination
       layout="prev, pager, next"
-      :total="total">
+      :total="total"
+      @current-change="changePage">
     </el-pagination>
   </div>
 </template>
@@ -73,6 +74,10 @@
           }
         }
         this.$store.dispatch('vendorList', opt)
+      },
+      changePage (page) {
+        this.pageNo = page
+        this.initGrid()
       },
       search (form) {
         this.form = form

@@ -70,12 +70,31 @@
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" @click="addProduct()"><i class="el-icon-plus"></i>新增</el-button>
-      <el-button type="primary"><i class="el-icon-upload2"></i>批量导入销售价格</el-button>
-      <el-button type="primary"><i class="el-icon-upload2"></i>批量导入商品</el-button>
-      <el-button type="primary"><i class="el-icon-upload2"></i>批量导入供应商价格</el-button>
-      <el-button type="primary"><i class="el-icon-share"></i>批量导出商品信息</el-button>
+      <el-button type="primary" @click="addProduct()" icon="plus">新增</el-button>
+      <el-button type="primary" @click="importSalePrice()" icon="upload2">批量导入销售价格</el-button>
+      <el-button type="primary" @click="importProduct()" icon="upload2">批量导入商品</el-button>
+      <el-button type="primary" @click="importVendorPrice()" icon="upload2">批量导入供应商价格</el-button>
+      <el-button type="primary" @click="exportProduct()" icon="share">批量导出商品信息</el-button>
     </el-button-group>
+    <el-dialog class="up_box" :title="title" v-model="dialogFormVisible">
+      <el-upload
+        ref="upload"
+        class="avatar-uploader"
+        :action="action"
+        :show-file-list="true"
+        :on-success="handleAvatarScucess"
+        :data="{}"
+        :auto-upload="true"
+        :on-error="handleAvatarError"
+        name="contractFile"
+        :multiple="false">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过20Mb</div>
+      </el-upload>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -91,7 +110,10 @@
           secondCategoryId: '',
           thirdCategoryId: '',
           status: ''
-        }
+        },
+        title: '',
+        action: '',
+        dialogFormVisible: false
       }
     },
     methods: {
@@ -100,12 +122,36 @@
       },
       addProduct() {
         this.$emit('add-product')
-      }
+      },
+      importSalePrice () {
+      	this.title='批量导入销售价格'
+        this.dialogFormVisible=true
+      },
+      importProduct () {
+        this.title='批量导入商品'
+        this.dialogFormVisible=true
+      },
+      importVendorPrice () {
+        this.title='批量导入供应商价格'
+        this.dialogFormVisible=true
+      },
+      exportProduct () {
+
+      },
+      handleAvatarScucess() {
+
+      },
+      handleAvatarError() {
+
+      },
     }
   }
 </script>
 <style scoped>
   .p_form {
     margin-bottom: 10px;
+  }
+  .up_box {
+    text-align: center;
   }
 </style>

@@ -51,7 +51,7 @@
 
       <el-table-column
         label="邮箱"
-        width="180"
+        min-width="180"
         align="center">
         <template scope="scope">
           <span style="margin-left: 10px">{{ scope.row.email }}</span>
@@ -96,7 +96,7 @@
 
       <el-table-column
         label="税务证登记号"
-        width="180"
+        min-width="220"
         align="center">
         <template scope="scope">
           <span style="margin-left: 10px">{{ scope.row.taxNumber }}</span>
@@ -105,7 +105,7 @@
 
       <el-table-column
         label="开户银行"
-        width="180"
+        min-width="220"
         align="center">
         <template scope="scope">
           <span style="margin-left: 10px">{{ scope.row.openBank }}</span>
@@ -114,7 +114,7 @@
 
       <el-table-column
         label="账户"
-        width="180"
+        min-width="180"
         align="center">
         <template scope="scope">
           <span style="margin-left: 10px">{{ scope.row.acctNo }}</span>

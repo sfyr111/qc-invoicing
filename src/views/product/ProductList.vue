@@ -88,7 +88,9 @@
   			this.$store.dispatch('productList', opt)
       },
       search (form) {
-  			this.form = form
+  			if (form) {
+          this.form = form
+        }
         this.initGrid()
       },
       changePage (page) {
