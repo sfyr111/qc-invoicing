@@ -45,29 +45,17 @@
       <el-input v-model="ruleForm.openAcctPerson" placeholder="请填写开户人"></el-input>
     </el-form-item>
 
-    <el-form-item label="账期结算方式">
-      <el-col :span="11">
-      <el-select @change="setPaymentDays" v-model="ruleForm.paymentWay" placeholder="请选择账期结算方式">
-        <el-option v-for="paymentWay in paymentWays" :key="paymentWay.value" :label="paymentWay.name" :value="paymentWay.value"></el-option>
-      </el-select>
-      </el-col>
-      <el-col :span="2">-</el-col>
-      <el-col :span="11">
-      <el-select :disabled="disablePaymentDays" v-model="ruleForm.paymentDays" placeholder="请选择结算天数">
-        <el-option v-for="paymentDay in paymentDaysc" :key="paymentDay.value" :label="paymentDay.name" :value="paymentDay.value"></el-option>
-      </el-select>
-      </el-col>
+    <el-form-item label="账期结算方式" prop="paymentWay">
+      <el-input v-model="ruleForm.paymentWay" placeholder="请填写账期结算方式"></el-input>
+    </el-form-item>
+
+    <el-form-item label="结算天数" prop="paymentDays">
+      <el-input v-model="ruleForm.paymentDays" placeholder="请填写结算天数"></el-input>
     </el-form-item>
 
     <el-form-item label="支付方式">
       <el-select v-model="ruleForm.payMethod" placeholder="请选择支付方式">
         <el-option v-for="payMethod in payMethods" :key="payMethod.value" :label="payMethod.name" :value="payMethod.value"></el-option>
-      </el-select>
-    </el-form-item>
-
-    <el-form-item label="支付约定">
-      <el-select v-model="ruleForm.payAppoint" placeholder="请选择支付约定">
-        <el-option v-for="payAppoint in payAppoints" :key="payAppoint.value" :label="payAppoint.name" :value="payAppoint.value"></el-option>
       </el-select>
     </el-form-item>
 
@@ -100,21 +88,10 @@
           openBank: '',
           acctNo: '',
           openAcctPerson: '',
-          paymentWay: 0,
-          paymentDays: 0,
+          paymentWay: '',
+          paymentDays: '',
           payMethod: 1,
-          payAppoint: 1,
         },
-        payAppoints: [{
-        	name: '预付货款',
-          value: 1
-        },{
-          name: '货到付款',
-          value: 2
-        },{
-          name: '分期付款',
-          value: 3
-        },],
         payMethods: [{
           name: '网银转账',
           value: 1
@@ -171,6 +148,12 @@
           }],
           openAcctPerson: [{
             required: true, message: '请填写开户人', trigger: 'blur'
+          }],
+          paymentWay: [{
+            required: true, message: '请填写账期结算方式', trigger: 'blur'
+          }],
+          paymentDays: [{
+            required: true, message: '请填写结算天数', trigger: 'blur'
           }]
         },
         disablePaymentDays: true,
@@ -207,7 +190,6 @@
               paymentWay: this.ruleForm.paymentWay,
               paymentDays: this.ruleForm.paymentDays,
               payMethod: this.ruleForm.payMethod,
-              payAppoint: this.ruleForm.payAppoint,
             }
             let url = configUrl.supplierAdd.dataUrl
             if (this.supplierId) {
@@ -240,15 +222,6 @@
             return false;
           }
         });
-      },
-      setPaymentDays (val) {
-        if (val === 0) {
-      		this.ruleForm.paymentDays=0
-          this.disablePaymentDays=true
-        }
-        if (val === 1) {
-          this.disablePaymentDays=false
-        }
       },
       initData () {
         let _this = this

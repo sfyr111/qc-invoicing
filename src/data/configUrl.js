@@ -1,4 +1,4 @@
-let devRootPath = 'http://192.168.16.210:9080/qc-invoicing/';
+let devRootPath = 'http://192.168.16.172:8080/qc-invoicing/';
 let proRootPath = 'http://eoms.17cai.com:8081/qc-invoicing/';
 let rootPath = process.env.NODE_ENV === "production" ? proRootPath : devRootPath;
 let imgPath = process.env.NODE_ENV === "production" ? "http://jl.17cai.com/static/img/" : "http://127.0.0.1/static/img/";
@@ -11,6 +11,10 @@ const configUrl = {
   // 新增产品
   productAdd: {
     dataUrl: rootPath + 'product/addProduct'
+  },
+  // 批量导入商品
+  importProduct: {
+    dataUrl: rootPath + 'import/sku'
   },
   // 修改产品
   productEdit: {
@@ -39,6 +43,10 @@ const configUrl = {
   // supplierEdit
   supplierEdit: {
     dataUrl: rootPath + 'supplier/editSupplier'
+  },
+  // 批量导入供应商
+  importSupplier: {
+    dataUrl: rootPath + 'import/supplier'
   },
   // supplierAdd
   supplierAdd: {

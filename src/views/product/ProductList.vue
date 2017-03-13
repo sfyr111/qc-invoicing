@@ -1,6 +1,10 @@
 <template>
   <div>
-    <product-form @form-submit="search" @add-product="addProduct"></product-form>
+    <product-form
+      @form-submit="search"
+      :loading-data="loadingData"
+      @add-product="addProduct"
+      @upload-suc="importSuc"></product-form>
     <product-grid
       :table-data="list"
       :loading-data="loadingData"
@@ -118,6 +122,10 @@
   			let opt = {
   				url: configUrl.productDetail
         }
+      },
+      importSuc () {
+  			this.pageNo=1
+        this.initGrid()
       }
     }
   }

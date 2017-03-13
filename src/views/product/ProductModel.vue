@@ -66,7 +66,7 @@
       submitSuc (resp) {
         this.activeName = 'second'
         if (resp.data) {
-          this.productId = resp.data.id
+          this.id = resp.data.productId
         }
         this.addSuc = true
         this.initPrice()

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vendor-form @form-submit="search" @add-vendor="addVendor"></vendor-form>
+    <vendor-form @form-submit="search" @add-vendor="addVendor" @upload-suc="uploadSuc"></vendor-form>
     <vendor-grid
       :loading-data="loadingData"
       :table-data="list"
@@ -130,6 +130,11 @@
             editId: row.id
           }
         })
+      },
+      uploadSuc () {
+    		console.log('上传成功')
+        this.pageNo=1
+        this.initGrid()
       }
     }
   }

@@ -30,6 +30,7 @@
             :on-success="handleAvatarScucess"
             :data="{startDate: startDate,
                     endDate: endDate,
+                    id: id,
                     supplierId: supplierId}"
             :auto-upload="true"
             :on-error="handleAvatarError"
@@ -138,6 +139,7 @@
           startDate: '',
           endDate: '',
         },
+        id: '',
         pickerOptions0: {
           disabledDate(time) {
             return time.getTime() < Date.now() - 8.64e7;
@@ -148,6 +150,7 @@
     methods: {
   		addCon() {
         this.dialogFormVisible = true
+        this.id=''
         this.form.startDate=''
         this.form.endDate=''
       },
@@ -176,6 +179,7 @@
       },
       handleEdit(index, row) {
       	this.dialogFormVisible=true
+        this.id=row.id
         this.form.startDate = row.startDate
         this.form.endDate = row.endDate
       },

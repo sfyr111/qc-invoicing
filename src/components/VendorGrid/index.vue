@@ -86,15 +86,6 @@
       </el-table-column>
 
       <el-table-column
-        label="支付约定"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.payAppoint }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
         label="税务证登记号"
         min-width="220"
         align="center">

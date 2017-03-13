@@ -153,18 +153,31 @@
       }
     },
     watch: {
-    	'ruleForm.firstCategoryId': function (newVal, oldVal) {
-    		if (oldVal && newVal != oldVal) {
-    			this.ruleForm.secondCategoryId=''
+      'ruleForm.firstCategoryId': function (newVal, oldVal) {
+        if (oldVal && newVal != oldVal) {
+          this.ruleForm.secondCategoryId=''
           this.ruleForm.thirdCategoryId=''
           this.disabledThird=true
           this.hasLoadingSecond=false
         }
+        if (newVal) {
+          this.disabledSecond = false
+        }
+        if (!newVal) {
+          this.disabledSecond = true
+          this.disabledThird = true
+        }
       },
       'ruleForm.secondCategoryId': function (newVal, oldVal) {
-    		if (oldVal && newVal != oldVal) {
+        if (oldVal && newVal != oldVal) {
           this.ruleForm.thirdCategoryId=''
           this.hasLoadingThird=false
+        }
+        if (newVal) {
+          this.disabledThird = false
+        }
+        if (!newVal) {
+          this.disabledThird = true
         }
       }
     },
@@ -298,7 +311,6 @@
           },
           success: function (resp) {
             _this.loadingFirst = false
-            _this.disabledSecond = false
             _this.hasLoadingFirst = true
           },
           fail: function (resp) {
@@ -330,7 +342,6 @@
           },
           success: function (resp) {
             _this.loadingSecond = false
-            _this.disabledThird = false
             _this.hasLoadingSecond = true
           },
           fail: function (resp) {
