@@ -35,6 +35,13 @@ import PurchaseReturnGrid from './PurchaseReturnGrid'
 import AddPurchaseTotal from './AddPurchaseTotal'
 import AddPurchaseWriteMsg from './AddPurchaseWriteMsg'
 import SelectProFrame from './SelectProFrame'
+import ReviewPurchaseGrid from './ReviewPurchaseGrid'
+import PosHead from './PosHead'
+import InventoryDetailsHead from './InventoryDetailsHead'
+import InventoryDetailsGrid from './InventoryDetailsGrid'
+import InventoryDetailsWarehouse from './InventoryDetailsWarehouse'
+import StoreInputHead from './StoreInputHead'
+import StoreInputGrid from './StoreInputGrid'
 
 export {
   QCHeader,
@@ -73,6 +80,13 @@ export {
   PurchaseReturnGrid,
   AddPurchaseTotal,
   AddPurchaseWriteMsg,
-  SelectProFrame
+  SelectProFrame,
+  ReviewPurchaseGrid,
+  PosHead,
+  InventoryDetailsHead,
+  InventoryDetailsGrid,
+  InventoryDetailsWarehouse,
+  StoreInputHead,
+  StoreInputGrid
 }
 

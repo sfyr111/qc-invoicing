@@ -3,7 +3,7 @@
 		<template>
 		  <div>
 		    <el-table
-		      :data="tableData"
+		      :data="list"
 		      border
 		      style="width: 100%"
 		      fit>
@@ -19,37 +19,39 @@
 		      <el-table-column
 		        label="采购单号"
 		        width="180"
+		        prop="serialNumber"
+		        sortable
 		        align="center">
-		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.date }}</span>
-		        </template>
 		      </el-table-column>
 
 		      <el-table-column
 		        label="供应商"
 		        width="180"
+		        prop="supplierName"
+		        sortable
 		        align="center">
-		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-		        </template>
 		      </el-table-column>
 
 		      <el-table-column
 		        label="建单日期"
-		        width="180"
+		        min-width="185"
+		        prop="createDate"
+		        sortable
 		        align="center">
-		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-		        </template>
+		        <!-- <template scope="scope">
+		          <span style="margin-left: 10px">{{ scope.row.createDate }}</span>
+		        </template> -->
 		      </el-table-column>
 
 		      <el-table-column
 		        label="交货日期"
-		        width="180"
+		        prop="deliveryDate"
+		        sortable
+		        min-width="185"
 		        align="center">
-		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-		        </template>
+		        <!-- <template scope="scope">
+		          <span style="margin-left: 10px">{{ scope.row.deliveryDate }}</span>
+		        </template> -->
 		      </el-table-column>
 
 		      <el-table-column
@@ -57,34 +59,34 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.creator }}</span>
 		        </template>
 		      </el-table-column>
 
-		      <el-table-column
+		      <!-- <el-table-column
 		        label="付款方式"
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.payMethod }}</span>
 		        </template>
-		      </el-table-column>
+		      </el-table-column> -->
 
-		      <el-table-column
+		      <!-- <el-table-column
 		        label="付款约定"
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.payAppoint }}</span>
 		        </template>
-		      </el-table-column>
+		      </el-table-column> -->
 
 		      <el-table-column
 		        label="审核状态"
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.flowStatus }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -93,7 +95,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.payStatus }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -102,7 +104,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.totalPrice.toFixed(2) }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -111,7 +113,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.payrollRequisitionMoney }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -120,7 +122,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.inStatus }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -129,7 +131,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.warehouseName }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -152,60 +154,15 @@
 
 <script>
 export default {
+	props: {
+		list: {
+			type: Array,
+			default: []
+		}
+	},
   data () {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+     
     }
   },
   methods: {

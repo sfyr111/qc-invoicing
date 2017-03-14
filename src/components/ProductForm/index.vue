@@ -2,16 +2,6 @@
   <div class="p_form">
     <el-form ref="form" :model="form" label-width="100px">
       <el-form-item>
-        <el-col :span="20">
-          &nbsp;
-        </el-col>
-        <el-col :span="4">
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit" :loading="false" icon="search">查询</el-button>
-          </el-form-item>
-        </el-col>
-      </el-form-item>
-      <el-form-item>
         <el-col :span="6">
           <el-form-item label="商品编码">
             <el-input v-model="form.productId"></el-input>
@@ -57,11 +47,35 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="状态">
-            <el-select v-model="form.status" clearable placeholder="请选择活动区域">
+            <el-select v-model="form.status" clearable placeholder="请选择状态">
               <el-option label="无效" value="0"></el-option>
               <el-option label="有效" value="1"></el-option>
               <el-option label="已删除" value="2"></el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+      </el-form-item>
+      <el-form-item>
+        <el-col :span="6">
+          <el-form-item label="是否需要同步">
+            <el-select clearable v-model="form.isSynchronize" placeholder="请选择是否同步到京东">
+              <el-option label="是" value="Y"></el-option>
+              <el-option label="否" value="N"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="同步状态">
+            <el-select clearable v-model="form.syncStatus" placeholder="请选择同步状态">
+              <el-option label="未同步" value="0"></el-option>
+              <el-option label="同步失败" value="1"></el-option>
+              <el-option label="同步成功" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit" :loading="loadingData" icon="search">查询</el-button>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -150,7 +164,9 @@
           firstCategoryId: '',
           secondCategoryId: '',
           thirdCategoryId: '',
-          status: ''
+          status: '',
+          isSynchronize: '',
+          syncStatus: '',
         },
         title: '',
         action: '',
@@ -167,6 +183,9 @@
     },
     methods: {
       onSubmit() {
+      	if (this.loadingData) {
+      		return
+        }
         this.$emit('form-submit', this.form)
       },
       addProduct() {

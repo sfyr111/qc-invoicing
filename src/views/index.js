@@ -22,11 +22,12 @@ import UserList from './system/UserList.vue'
 import RoleList from './system/RoleList.vue'
 import MenuList from './system/MenuList.vue'
 import DeptList from './system/DeptList.vue'
-import InvProDetail from './storage/InvProDetail'
+import InventoryDetails from './storage/InventoryDetails'
 import ListPurchaseDetail from './purchase/ListPurchaseDetail'
 import ListReturnDetail from './purchase/ListReturnDetail'
 import AddPurchaseOrder from './purchase/AddPurchaseOrder'
 import AddReturnOrder from './purchase/AddReturnOrder'
+import StorageInputDetails from './storage/StorageInputDetails'
 
 const components = {
   Main,
@@ -53,11 +54,12 @@ const components = {
   RoleList,
   MenuList,
   DeptList,
-  InvProDetail,
+  InventoryDetails,
   ListPurchaseDetail,
   ListReturnDetail,
   AddPurchaseOrder,
-  AddReturnOrder
+  AddReturnOrder,
+  StorageInputDetails
 };
 
 export default components;

@@ -6,35 +6,32 @@
 
 		<div>
 			    <el-table
-			      :data="tableData"
+			      :data="record"
 			      border
 			      style="width: 100%"
 			      fit>
 						
 			      <el-table-column
 			        label="入库日期"
-			        width="180"
 			        align="center">
 			        <template scope="scope">
-			          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+			          <span style="margin-left: 10px">{{ scope.row.inStorageDate }}</span>
 			        </template>
 			      </el-table-column>
 
 			      <el-table-column
 			        label="入库单号"
-			        width="180"
 			        align="center">
 			        <template scope="scope">
-			          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+			          <span style="margin-left: 10px">{{ scope.row.inStorageCode }}</span>
 			        </template>
 			      </el-table-column>
 
 			      <el-table-column
 			        label="入库备注"
-			        width="180"
 			        align="center">
 			        <template scope="scope">
-			          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+			          <span style="margin-left: 10px">{{ scope.row.remarks }}</span>
 			        </template>
 			      </el-table-column>
 			    </el-table>
@@ -44,61 +41,14 @@
 
 <script>
 export default {
-  data () {
-    return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+  props: {
+    record: {
+      type: Array,
+      deault: []
     }
+  },
+  data () {
+    return {}
   },
   methods: {
     //	查看详情

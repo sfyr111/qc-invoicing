@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <el-menu default-active="1" class="el-menu-vertical-demo" theme="dark" unique-opened @select="select">
+    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-menu"></i>商品管理</template>
         <!--<el-menu-item index="category">分类管理</el-menu-item>-->
@@ -53,10 +53,12 @@
         tabIndex: '2-1'
       }
     },
+    created() {
+     	this.navInit()
+    },
     methods: {
-      select (index) {
-        console.log(index)
-        this.$emit('side-bar-select', index)
+      navInit() {
+
       }
     },
     computed:{

@@ -1,6 +1,6 @@
 <template>
 	<div class="purchase_return_head">
-				<el-form ref="form" :model="form" label-width="130px">
+				<el-form ref="form" :model="form" :rules="rules" label-width="130px">
 				  <el-row :gutter="20">
 				    <el-col :span="8">
 				    	<el-form-item label="采购方:">
@@ -9,38 +9,36 @@
 				    </el-col>
 
 				    <el-col :span="8">
-				    	<el-form-item label="采购方联系人：">
-				    	    <el-input v-model="form.buyerName"></el-input>
+				    	<el-form-item label="采购方联系人：" prop="principalMan">
+				    	    <el-input v-model="form.principalMan"></el-input>
 				    	</el-form-item>
 				    </el-col>
 
-				    <el-col :span="8">
-				    	<el-form-item label="采购方联系电话：">
-				    	    <el-input v-model="form.buyerPhone"></el-input>
+				    <el-col :span="8"  class="none">
+				    	<el-form-item label="采购方联系电话：" prop="principalManTel">
+				    	    <el-input v-model="form.principalManTel"></el-input>
 				    	</el-form-item>
 				    </el-col>
 				  </el-row>
 
 				  <el-row :gutter="20">
 				    <el-col :span="8">
-  				  	<el-form-item label="供货方：">
-					    	<el-select v-model="form.supplierCompany" placeholder="">
-					    		<el-option label="全部" value="0"></el-option>
-			    	      <el-option label="已入库" value="1"></el-option>
-			    	      <el-option label="未入库" value="2"></el-option>
+  				  	<el-form-item label="供货方：" prop="supplierCompanyName">
+					    	<el-select v-model="form.supplierCompanyName" placeholder="请选择供货方" @change="selectSupplier()">
+					    		<el-option :label="item.name" :value="item.name" v-for="(item, index) in list" :key="item.name"></el-option>
 			    	    </el-select>
 			    	  </el-form-item>
   				  </el-col>
 
 				    <el-col :span="8">
 				    	<el-form-item label="供货方联系人：">
-				    	    <el-input v-model="form.supplierName"></el-input>
+				    	    <el-input v-model="form.supplierName" readonly></el-input>
 				    	</el-form-item>
 				    </el-col>
 
 				    <el-col :span="8">
 				    	<el-form-item label="供货方联系电话：">
-				    	    <el-input v-model="form.supplierPhone"></el-input>
+				    	    <el-input v-model="form.supplierPhone" readonly></el-input>
 				    	</el-form-item>
 				    </el-col>
 				  </el-row>
@@ -65,21 +63,69 @@
 		background: none;
 		color: #48576a;
 	}
+
+	.el-form-item__label{
+		padding: 11px 5px 11px 0;
+	}
 }
 </style>
 
 <script>
+import util from '../../utils/util'
 export default {
+	props: {
+		list: {
+			type: Array,
+			default: []
+		}
+	},
 	data () {
 		return {
 			form: {
 				buyerCompany: '深圳齐采科技有限公司',		
-				buyerName: '',			
-				buyerPhone: '',
+				principalMan: '',			//	采购方联系人
+				principalManTel: '',	//	采购方联系电话
 				supplierCompany: '',
 				supplierName: '',
-				supplierPhone: ''
-			}
+				supplierPhone: '',
+				selectSupplierObj: '',								//		供货方选择对象
+				supplierCompanyName: ''								//		供货方公司
+			},
+
+			rules: {
+				principalMan: [{required: true, message: '请输入联系人', trigger: 'blur'}],
+				//principalManTel: [{required: true, message: '请输入联系电话', trigger: 'blur'}],
+				supplierCompanyName: [{required: true, message: '请选择供货方', trigger: 'change'}],
+			},					//	表单验证
+		}
+	},
+
+	methods: {
+		//	选择供货方
+		selectSupplier () {
+			//	获取选中的对象
+			this.form.supplierCompany = util.getKeyObj('name', this.list, this.form.supplierCompanyName)
+			console.log(util.getKeyObj(this.form.supplierCompanyName, this.list))
+			this.form.supplierName = this.form.supplierCompany.contacts
+			this.form.supplierPhone = this.form.supplierCompany.contactsPhone
+
+			//	添加供货方
+			this.$emit('select-supplier', this.form.supplierCompany)
+		},
+
+		//	表单验证是否可以提交
+		checkSubmit () {
+			let isSubmit = false
+			this.$refs['form'].validate((valid) => {
+				if (valid) {
+					isSubmit = true 
+				}
+				else {
+					isSubmit = false 
+				}
+			})
+
+			return isSubmit
 		}
 	}
 }

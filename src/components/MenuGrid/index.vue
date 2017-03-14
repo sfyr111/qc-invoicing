@@ -5,110 +5,65 @@
       border
       style="width: 100%"
       fit
-      v-loading="loading"
+      v-loading="loadingData"
       element-loading-text="拼命加载中">
       <el-table-column
-        label="商品编码"
+        label="是否要授权"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.accessType }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="商品名称"
+        label="功能级别"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.functionLevel }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="商品分类"
+        label="功能名称"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.functionName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="品牌"
+        label="功能排序"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="商品版本"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.functionOrder }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品SKU"
+        label="URL"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.functionUrl }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品69码"
+        label="是否有效"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.isValid }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-        label="商品单位"
+        label="创建人"
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="销售价格"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="采购含税价格"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="采购不含税价格"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="库存数量"
-        width="180"
-        align="center">
-        <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.instUser }}</span>
         </template>
       </el-table-column>
 
@@ -117,7 +72,43 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.instTime }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="修改人"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.lupdUser }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="修改时间"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.lupdTime }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="上级编号"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.parentFunctionId }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="备注"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.memo }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -131,9 +122,6 @@
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
             size="small"
-            @click="handleInfo(scope.$index, scope.row)">查看</el-button>
-          <el-button
-            size="small"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -143,69 +131,26 @@
 </template>
 <script>
   export default {
+    props: {
+      tableData: {
+        type: Array,
+        default: []
+      },
+      loadingData: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
-        tableData: [
-          {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }],
-        loading: true,
-        KV: [{
-          text: 'x1',
-          prop: 'address'
-        },{
-          text: 'x2',
-          prop: 'date'
-        },{
-          text: 'x2',
-          prop: 'date'
-        }]
       }
     },
     methods: {
       handleEdit(index, row) {
-        console.log(index, row);
+        this.$emit('row-edit', row)
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        this.$emit('menu-del', row.functionId)
       },
       handleInfo(index, row) {
         console.log(index, row);

@@ -29,8 +29,8 @@
         </el-col>
         <el-col :span="8">
           <el-form-item>
-            <el-button type="primary" @click="onSubmit" :loading="false" icon="search">查询</el-button>
-            <el-button type="primary" @click="addVendor" :loading="false" icon="plus">新建</el-button>
+            <el-button type="primary" @click="onSubmit" :loading="loadingData" icon="search">查询</el-button>
+            <el-button type="primary" @click="addVendor" icon="plus">新建</el-button>
             <el-button type="primary" @click="importVendor()" icon="upload2">批量导入供应商</el-button>
           </el-form-item>
         </el-col>
@@ -79,6 +79,9 @@
     },
     methods: {
       onSubmit() {
+        if (this.loadingData) {
+          return
+        }
         this.$emit('form-submit', this.form)
       },
       addVendor () {

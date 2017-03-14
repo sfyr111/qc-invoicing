@@ -208,6 +208,18 @@ const util = {
   	}
 
   	return newArr
+  },
+
+  //  根据key 取出数组里面对应匹配的obj   key----数组对象要比较的属性  ayy----对象数组  val----比较的值
+  getKeyObj (key, arr, val) {
+    let obj = {}
+    
+    for (var i = 0; i < arr.length; i ++) {
+      if (val === arr[i][key]) {
+        obj = arr[i]
+        return obj
+      }
+    }
   }
 }
 

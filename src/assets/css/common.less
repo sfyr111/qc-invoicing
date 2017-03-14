@@ -90,3 +90,35 @@ p {
   width: 100%;
   text-align: center;
 }
+/* 单行溢出省略号 */
+.overfl-oneline, .store_list_grid .el-table .cell{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.yichu2{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.padTop_40{
+  padding-top: 40px;
+}
+.small_head{
+  line-height: 30px;
+  padding: 0 15px;
+  background: rgba(83, 97, 116, 0.5);
+  font-size: 14px;
+  color: #FFF;
+  margin: 0;
+}
+.none{
+  display: none;
+}
+
+.el-table .cell{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

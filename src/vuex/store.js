@@ -4,6 +4,7 @@ import Product from './modules/Product'
 import Category from './modules/Category'
 import Vendor from './modules/Vendor'
 import Purchase from './modules/Purchase'
+import System from './modules/System'
 
 Vue.use(Vuex)
 let store = new Vuex.Store({
@@ -11,7 +12,8 @@ let store = new Vuex.Store({
     Product,
     Category,
     Vendor,
-    Purchase
+    Purchase,
+    System
   }
 });
 

@@ -17,6 +17,8 @@
   </div>
 </template>
 <script>
+  import configUrl from '../../data/configUrl'
+  import util from '../../utils/util'
   export default {
     data () {
     	return {
@@ -26,8 +28,25 @@
     methods: {
       handleCommand(command) {
         if(command == 'loginout'){
-          localStorage.removeItem('ms_username')
-          this.$router.push('/login');
+        	let _this = this
+          let opt= {
+          	url: configUrl.logOut.dataUrl,
+            type: 'get',
+            success: function (resp) {
+              _this.$message({
+                message: resp.msg,
+                type: 'success'
+              });
+              window.location.href=configUrl.main.dataUrl;
+            },
+            fail: function (resp) {
+              _this.$message({
+                message: resp.msg,
+                type: 'error'
+              });
+            }
+          }
+          util.getMyrequest(opt)
         }
       }
     }

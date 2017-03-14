@@ -230,7 +230,6 @@
         if (this.hasSubmit) {
           return
         }
-        this.hasSubmit = true
         let _this = this
         let data = {
           productName: this.ruleForm.productName,
@@ -253,6 +252,7 @@
         }
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            _this.hasSubmit = true
             let opt = {
               url: url,
               type: 'post',

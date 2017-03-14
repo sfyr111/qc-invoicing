@@ -20,7 +20,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.productName }}</span>
+          <span style="margin-left: 10px" :title="scope.row.productName">{{ scope.row.productName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -28,7 +28,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.firstCategoryName }}-{{ scope.row.secondCategoryName }}-{{ scope.row.thirdCategoryName }}</span>
+          <span style="margin-left: 10px" :title="scope.row.productName+scope.row.secondCategoryName+scope.row.thirdCategoryName">{{ scope.row.firstCategoryName }}-{{ scope.row.secondCategoryName }}-{{ scope.row.thirdCategoryName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -55,6 +55,24 @@
         align="center">
         <template scope="scope">
           <span style="margin-left: 10px">{{ scope.row.productCode }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="是否需要同步"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.isSynchronizeStr }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="同步状态"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.syncStatusStr }}</span>
         </template>
       </el-table-column>
 

@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="padTop_40">
+    <!-- 标题 -->
+    <pos-head title="采购列表"></pos-head>
     <!-- 采购列表查询 -->
     <list-purchase-form @add-purchase-order="addPurchaseOrder" @on-check="check"></list-purchase-form>
 
     <!-- tab表格 -->
-    <list-purchase-grid @view-detail="viewDetail"></list-purchase-grid>
+    <list-purchase-grid @view-detail="viewDetail" :list="getPurchaseOrderList"></list-purchase-grid>
 
     <!-- 分页 -->
     <el-pagination
@@ -18,14 +20,14 @@
 </template>
 
 <script>
-import { ListPurchaseForm, ListPurchaseGrid } from '../../components'
+import { ListPurchaseForm, ListPurchaseGrid, PosHead } from '../../components'
 import configUrl from '../../data/configUrl'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	data () {
 		return {
-			totalLimits: 1000,					//总条数
+			totalLimits: 0,					//总条数
       listUrl: configUrl.listPurchaseUrl.dataUrl,     //  列表查询URL
       isCanCheck: true,                               //  查询按钮节流
       checkParams: {
@@ -39,12 +41,14 @@ export default {
         creator: '',               // 制单人
         pageNo: 1,                // 当前页
         pageSize: 10,              //  每页条数
-      }                              
+      },
+      input: '',                             
 		}
 	},
 	components: {
 		ListPurchaseForm,
-		ListPurchaseGrid
+		ListPurchaseGrid,
+    PosHead
 	},
 
   created () {
@@ -66,9 +70,12 @@ export default {
 
     //	查看详情
     viewDetail (msg) {
-    	//console.log(msg)
+    	console.log(msg)
     	this.$router.push({
-    		name: 'listPurchaseDetail'
+    		name: 'listPurchaseDetail',
+        query: {
+          serialNumber: msg.obj.serialNumber
+        }
     	})
     },
 
@@ -101,6 +108,7 @@ export default {
         }
         data = Object.assign(obj, msg)
       }
+      //  分页或初始化
       else {
         data = this.checkParams
       }
@@ -112,6 +120,8 @@ export default {
         data: data,
         success: function (res) {
           console.log(res)
+          self.isCanCheck = true
+          self.totalLimits = res.data.total
         },
         fail: function (err) {
           self.isCanCheck = true
@@ -120,7 +130,15 @@ export default {
       }
 
       this.purchaseOrderList(opt)
+    },
+
+    input () {
+      console.log(this.input)
     }
-	}
+	},
+
+  computed: {
+    ...mapGetters(['getPurchaseOrderList'])
+  }
 }
 </script>

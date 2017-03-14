@@ -5,24 +5,24 @@
 			<el-row>
 			  <el-col :span="7">
 			  	<el-form-item label="商品编号:">
-			  	    <el-input v-model="form.name"></el-input>
+			  	    <el-input v-model="form.productId"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
 			  <el-col :span="7">
 			  	<el-form-item label="商品名称:">
-			  	    <el-input v-model="form.name"></el-input>
+			  	    <el-input v-model="form.productName"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
 			  <el-col :span="7">
 			  	<el-form-item label="品牌:">
-			  	    <el-input v-model="form.name"></el-input>
+			  	    <el-input v-model="form.brand"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
 			  <el-col :span="3">
-			  	<el-button type="primary">查询</el-button>
+			  	<el-button type="primary" @click="checkList">查询</el-button>
 			  </el-col>
 			  
 			</el-row>
@@ -33,14 +33,14 @@
 			<!-- 商品分类 -->
 		  <el-col :span="4" class="categories">
 		  	<el-col :span="24"><div class="title">商品分类</div></el-col>
-		  	<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+		  	<el-tree :data="treeList" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
 		  </el-col>
 
 		  <!-- tab 分页 -->
 		  <el-col :span="20" class="tab">
 		  	<!-- tab -->
 		  	<el-table
-		  	    :data="tableData3"
+		  	    :data="product.rows"
 		  	    border
 		  	    style="width: 100%"
 		  	    @selection-change="handleSelectionChange">
@@ -49,19 +49,65 @@
 		  	      width="55">
 		  	    </el-table-column>
 		  	    <el-table-column
-		  	      label="日期"
-		  	      width="120">
-		  	      <template scope="scope">{{ scope.row.date }}</template>
+		  	      label="商品编码"
+		  	    >
+		  	      <template scope="scope">
+		  	      	{{ scope.row.productId }}
+		  	      </template>
 		  	    </el-table-column>
+
 		  	    <el-table-column
-		  	      prop="name"
-		  	      label="姓名"
-		  	      width="120">
+		  	      label="商品名称"
+		  	    >
+		  	      <template scope="scope">
+		  	      	<span class="overfl-oneline" :title="scope.row.productName">
+		  	      		{{ scope.row.productName }}
+		  	      	</span>
+		  	      </template>
 		  	    </el-table-column>
+
 		  	    <el-table-column
-		  	      prop="address"
-		  	      label="地址"
-		  	      show-overflow-tooltip>
+		  	      label="商品分类"
+		  	    >
+		  	      <template scope="scope">
+		  	      	<span class="overfl-oneline" :title="scope.row.category">
+		  	      		{{ scope.row.category }}
+		  	      	</span>
+		  	      </template>
+		  	    </el-table-column>
+
+		  	    <el-table-column
+		  	      label="商品版本"
+		  	    >
+		  	      <template scope="scope">
+		  	      	<span class="overfl-oneline" :title="scope.row.productVersion">
+		  	      		{{ scope.row.productVersion }}
+		  	      	</span>
+		  	      </template>
+		  	    </el-table-column>
+
+		  	    <el-table-column
+		  	      label="商品SKU"
+		  	    >
+		  	      <template scope="scope">{{ scope.row.skuCode }}</template>
+		  	    </el-table-column>
+
+		  	    <el-table-column
+		  	      label="税率"
+		  	    >
+		  	      <template scope="scope">{{ scope.row.taxRate }}</template>
+		  	    </el-table-column>
+
+		  	    <el-table-column
+		  	      label="含税价格"
+		  	    >
+		  	      <template scope="scope">{{ scope.row.price }}</template>
+		  	    </el-table-column>
+
+		  	    <el-table-column
+		  	      label="不含税价格"
+		  	    >
+		  	      <template scope="scope">{{ scope.row.priceNoTax }}</template>
 		  	    </el-table-column>
 		  	</el-table>
 	
@@ -71,7 +117,7 @@
 				  :page-size="limit"
 				  :current-page="currentPage"
 				  @current-change="handleCurrentChange"
-				  :total="totalLimits">
+				  :total="product.total">
 				</el-pagination>
 
 		  </el-col>
@@ -124,7 +170,7 @@
 			}
 
 			.el-pagination {
-				margin-top: 20px;
+				margin-top: 7px;
 			}
 		}
 	}
@@ -133,117 +179,68 @@
 
 <script>
 export default {
+	props: {
+		//	商品分类菜单
+		treeList: {
+			type: Array,
+			default: []
+		},
+
+		//	商品列表
+		product: {
+			type: Object,
+			default: {}
+		}
+	},
 	data () {
 		return {
 			form: {
-				name: ''
+				productId: '',				//	商品编号
+				productName: '',			//	商品名称
+				brand: ''						//	品牌
 			},
-
-			data: [{
-			          label: '一级 1',
-			          children: [{
-			            label: '二级 1-1',
-			            children: [{
-			              label: '三级 1-1-1'
-			            }]
-			          }]
-			        },
-			        {
-			          label: '一级 2',
-			          children: [{
-			            label: '二级 2-1',
-			            children: [{
-			              label: '三级 2-1-1'
-			            }]
-			          }, {
-			            label: '二级 2-2',
-			            children: [{
-			              label: '三级 2-2-1'
-			            }]
-			          }]
-			        },
-			        {
-			          label: '一级 3',
-			          children: [{
-			            label: '二级 3-1',
-			            children: [{
-			              label: '三级 3-1-1'
-			            }]
-			          }, {
-			            label: '二级 3-2',
-			            children: [{
-			              label: '三级 3-2-1'
-			            }]
-			          }]
-			        }],
+			
       defaultProps: {
-        children: 'children',
-        label: 'label'
+        children: 'childCategoryList',
+        label: 'categoryName'
       },
-
-        tableData3: [{
-                  date: '2016-05-03',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-02',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-04',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-01',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-08',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-06',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                  date: '2016-05-07',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                },
-                {
-                  date: '2016-05-07',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                },
-                {
-                  date: '2016-05-07',
-                  name: '王小虎',
-                  address: '上海市普陀区金沙江路 1518 弄'
-                }
-             ],
       multipleSelection: [],
       limit: 10,					//	分页条数
-      currentPage: 1,				//	当前页
-      totalLimits: 1000,		//	总条数
+      currentPage: 1				//	当前页
 		}
 	},
 
 	methods: {
 		//	商品分类
 		handleNodeClick(data) {
-	    console.log(data);
+	    this.$emit('menu-tree', data)
 	  },
 
-	  //	全选
+	  //	勾选商品 checkbox
 	  handleSelectionChange(val) {
       this.multipleSelection = val
-      console.log(`选择的数组${val}`)
+    },
+
+    //	清空勾选商品
+    clearSelectCheckbox () {
+    	this.multipleSelection = []
+    },
+
+    //	获取选中的商品数组
+    getSelectCheckboxArr () {
+    	let arr = this.multipleSelection
+    	return arr
     },
 
     //	分页点击页码
     handleCurrentChange (pageIndex) {
-    	console.log(pageIndex)
+    	this.$emit('to-page', pageIndex)
+    },
+
+    //	查询
+    checkList () {
+    	this.$emit('check-list', this.form)
     }
-	}
+	},
 }
 </script>

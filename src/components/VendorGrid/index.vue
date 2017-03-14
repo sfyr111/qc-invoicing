@@ -4,7 +4,6 @@
       :data="tableData"
       border
       style="width: 100%"
-      fit
       v-loading="loadingData"
       element-loading-text="拼命加载中">
       <el-table-column
@@ -20,7 +19,7 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px" :title="scope.row.name">{{ scope.row.name }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -28,14 +27,14 @@
         width="180"
         align="center">
         <template scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.address }}</span>
+          <span style="margin-left: 10px" :title="scope.row.address">{{ scope.row.address }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="供应商电话"
         width="180"
         align="center">
-        <template scope="scope">
+        <template scope="scope" :title="scope.row.phone">
           <span style="margin-left: 10px">{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
@@ -53,7 +52,7 @@
         label="邮箱"
         min-width="180"
         align="center">
-        <template scope="scope">
+        <template scope="scope" :title="scope.row.email">
           <span style="margin-left: 10px">{{ scope.row.email }}</span>
         </template>
       </el-table-column>
@@ -115,7 +114,7 @@
         label="开户人"
         width="180"
         align="center">
-        <template scope="scope">
+        <template scope="scope" :title="scope.row.openAcctPerson">
           <span style="margin-left: 10px">{{ scope.row.openAcctPerson }}</span>
         </template>
       </el-table-column>

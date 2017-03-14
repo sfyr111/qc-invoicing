@@ -2,10 +2,10 @@
 	<div class="list_purchase_detail_head">
 		<h1>
 			<span>
-				采购单号：GG-13031-3123123
+				采购单号：{{ obj.serialNumber }}
 			</span>
 			<span>
-				建单日期：2014-09-09  16:31
+				建单日期：{{ obj.createDate }}
 			</span>
 		</h1>
 
@@ -14,35 +14,37 @@
 				<el-row>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		采购方：深圳机顶盒萨科技发货
+				  		采购方：深圳齐采科技有限公司
 				  	</div>
 				  </el-col>
+				  
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		供货方：发哈咖啡萨科技会发生
+				  		采购方联系人：{{ obj.principalMan }}
 				  	</div>
 				  </el-col>
-				  <el-col :span="8">
-				  	<div class="grid-content bg-purple">
-				  		采购方联系人：发哈咖啡萨科技会发生
-				  	</div>
-				  </el-col>
+				 <!--  <el-col :span="8">
+				 	<div class="grid-content bg-purple">
+				 		采购方联系电话：{{ obj.principalManTel }}
+				 	</div>
+				 </el-col> -->
 				</el-row>
 
 				<el-row>
-				  <el-col :span="8">
+					<el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		供货方联系人：深圳机顶盒萨科技发货
+				  		供货方：{{ obj.supplierName }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		采购方联系电话：1344234324324
+				  		供货方联系人：{{ obj.contacts }}
 				  	</div>
 				  </el-col>
+				  
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		供货方联系电话：1344234324324
+				  		供货方联系电话：{{ obj.contactsPhone }}
 				  	</div>
 				  </el-col>
 				</el-row>
@@ -78,3 +80,14 @@
 	}
 }
 </style>
+
+<script>
+export default {
+	props: {
+		obj: {
+			type: Object,
+			default: {}
+		}
+	}
+}
+</script>

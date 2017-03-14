@@ -1,26 +1,31 @@
 <template>
-	<div class="list_purchase_detail">
+	<div class="list_purchase_detail padTop_40">
+		<!-- title -->
+		<pos-head title="采购详情"></pos-head>
+
 		<!-- 采购列表 -->
-		<list-purchase-detail-head></list-purchase-detail-head>
-		<list-purchase-detail-grid></list-purchase-detail-grid>
+		<list-purchase-detail-head v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :obj="getPurchaseOrderDetail.purchaseOrderDetailDTO"></list-purchase-detail-head>
+
+		<!-- tab -->
+		<list-purchase-detail-grid v-if="getPurchaseOrderDetail.purchaseItemList" :table-data="getPurchaseOrderDetail.purchaseItemList"></list-purchase-detail-grid>
 
 		<!-- 合计 -->
-		<list-purchase-detail-total></list-purchase-detail-total>
+		<list-purchase-detail-total v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :total-data="getPurchaseOrderDetail.purchaseOrderDetailDTO" :detail="getPurchaseOrderDetail"></list-purchase-detail-total>
 
 		<!-- 相关约定 -->
-		<list-purchase-detail-agree></list-purchase-detail-agree>
+		<list-purchase-detail-agree v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :obj="getPurchaseOrderDetail.purchaseOrderDetailDTO"></list-purchase-detail-agree>
 
 		<!-- 入库记录 -->
-		<list-purchase-detail-records></list-purchase-detail-records>
+		<list-purchase-detail-records v-if="getPurchaseOrderDetail.storageRecords" :record="getPurchaseOrderDetail.storageRecords"></list-purchase-detail-records>
 
 		<!-- 订单状态 -->
-		<list-purchase-order-status></list-purchase-order-status>
+		<list-purchase-order-status v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :obj="getPurchaseOrderDetail.purchaseOrderDetailDTO"></list-purchase-order-status>
 
 		<!-- 按钮 请款 打印 -->
-		<div class="btn">
+		<!-- <div class="btn">
 			<el-button type="info">打印</el-button>
 			<el-button type="warning" @click="showPleasePayBox">申请请款</el-button>
-		</div>
+		</div> -->
 
 		<!-- 请款弹窗 -->
 		<el-dialog title="请款提示" v-model="isShowPleasePayBox">
@@ -63,8 +68,10 @@ import {
 	ListPurchaseDetailAgree,
 	ListPurchaseDetailRecords,
 	ListPurchaseOrderStatus,
-
+	PosHead
 } from '../../components'
+import { mapActions, mapGetters } from 'vuex'
+import configUrl from '../../data/configUrl'
 
 export default {
 	data () {
@@ -73,7 +80,9 @@ export default {
 			formLabelWidth: '80px',
 			form: {
 				moneyNum: ''
-			}
+			},
+			serialNumber: '',								//	采购单号
+			detailUrl: configUrl.listPurchaseDetail.dataUrl,			//	详情URL
 		}
 	},
 	components: {
@@ -83,10 +92,22 @@ export default {
 		ListPurchaseDetailAgree,
 		ListPurchaseDetailRecords,
 		ListPurchaseOrderStatus,
+		PosHead
+	},
 
+	created () {
+		let query = this.$route.query
+		console.log(query)
+		this.serialNumber = query.serialNumber
+
+		//	初始化详情
+		this.getDetail()
 	},
 
 	methods: {
+		//	 vuex  actions
+		...mapActions(['purchaseOrderDetail']),
+
 		//	请款弹窗
 		showPleasePayBox () {
 			this.isShowPleasePayBox = true
@@ -101,7 +122,31 @@ export default {
 		pleasePayBoxConfirm () {
 			this.isShowPleasePayBox = false
 			console.log(this.form.moneyNum)
+		},
+
+		//	获取详情
+		getDetail () {
+			let self = this
+			let opt = {
+				type: 'get',
+				url: this.detailUrl,
+				data: {
+					serialNumber: this.serialNumber
+				},
+				success: function (res) {
+					console.log(res)
+				},
+				fail: function (res) {
+					self.$message.error('获取详情失败')
+				}
+			}
+
+			this.purchaseOrderDetail(opt)
 		}
+	},
+
+	computed: {
+		...mapGetters(['getPurchaseOrderDetail'])
 	}
 }
 </script>

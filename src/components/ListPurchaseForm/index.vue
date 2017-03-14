@@ -17,6 +17,7 @@
 		    <el-col :span="6">
 		    	<el-form-item label="审核状态：">
 			    	<el-select v-model="form.flowStatus" placeholder="">
+              <el-option label="全部" value=""></el-option>
 	    	      <el-option label="待审核" value="1"></el-option>
 	    	      <el-option label="审核通过" value="2"></el-option>
 	    	      <el-option label="未通过" value="3"></el-option>
@@ -28,6 +29,7 @@
 		    <el-col :span="6">
 		    	<el-form-item label="入库状态：">
 			    	<el-select v-model="form.inStatus" placeholder="">
+              <el-option label="全部" value=""></el-option>
 			    		<el-option label="未入库" value="1"></el-option>
 	    	      <el-option label="已入库" value="3"></el-option>
 	    	    </el-select>
@@ -39,6 +41,7 @@
   	    <el-col :span="6">
   	    	<el-form-item label="付款状态：">
   		    	<el-select v-model="form.payStatus" placeholder="">
+              <el-option label="全部" value=""></el-option>
       	      <el-option label="未请款" value="1"></el-option>
               <el-option label="待付款" value="2"></el-option>
       	      <el-option label="已付款" value="3"></el-option>

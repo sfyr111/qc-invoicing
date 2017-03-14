@@ -1,17 +1,7 @@
 <template>
 	<div class="store_list_form">
 		<el-form ref="form" :model="form" label-width="100px">
-		  <el-row :gutter="20">
-		    <el-col :span="20">
-		    	&nbsp;
-		    </el-col>
-				
-				<el-col :span="4">
-	    	  <el-form-item>
-	          <el-button type="primary" @click="onSubmit">查询</el-button>
-	        </el-form-item>
-	      </el-col>
-		  </el-row>
+		  
 
 		  <el-row :gutter="20">
 		    <el-col :span="6">
@@ -85,10 +75,28 @@
       	    </el-select>
       	  </el-form-item>
   	    </el-col>
+
+  			<el-col :span="18">
+      	  <el-form-item>
+            <el-button type="primary" @click="onSubmit">查询</el-button>
+          </el-form-item>
+        </el-col>
   	  </el-row>
 		</el-form>
 	</div>
 </template>
+
+<style lang="less">
+.store_list_form{
+	.el-form-item__content{
+		text-align: right;
+
+		.el-button--primary{
+			width: 100px;
+		}
+	}
+}
+</style>
 
 <script>
 export default {

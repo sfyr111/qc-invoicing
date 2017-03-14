@@ -20,7 +20,7 @@ export default new Router({
         },{
           path: '/productList',
           name: 'productList',
-          component: page.ProductList
+          component: page.ProductList,
         },{
           path: '/productModel',
           name: 'productModel',
@@ -42,16 +42,23 @@ export default new Router({
         },
         //  库存列表详情
         {
-          path: '/invProDetail',
-          name: 'invProDetail',
-          component: page.InvProDetail
+          path: '/inventoryDetails',
+          name: 'inventoryDetails',
+          component: page.InventoryDetails
         },
-
+        //  入库管理
         {
           path: '/storageInput',
           name: 'storageInput',
           component: page.StorageInput
-        },{
+        },
+        //  入库管理详情
+        {
+          path: '/storageInputDetails',
+          name: 'storageInputDetails',
+          component: page.StorageInputDetails
+        },
+        {
           path: '/storageOutput',
           name: 'storageOutput',
           component: page.StorageOutput

@@ -1,4 +1,4 @@
-let devRootPath = 'http://192.168.16.172:8080/qc-invoicing/';
+let devRootPath = 'http://192.168.16.210:9080/qc-invoicing/';
 let proRootPath = 'http://eoms.17cai.com:8081/qc-invoicing/';
 let rootPath = process.env.NODE_ENV === "production" ? proRootPath : devRootPath;
 let imgPath = process.env.NODE_ENV === "production" ? "http://jl.17cai.com/static/img/" : "http://127.0.0.1/static/img/";
@@ -75,6 +75,82 @@ const configUrl = {
   //  采购管理 商品列表
   listPurchaseUrl: {
     dataUrl: rootPath + 'purchase/purchase_order_list'
+  },
+  //  采购管理 商品列表
+  listPurchaseDetail: {
+    dataUrl: rootPath + 'purchase/purchase_order_detail'
+  },
+
+  //  选择商品 商品分类树
+  supplierProCategoryTree: {
+    dataUrl: rootPath + 'purchase/supplier_product_category_tree'
+  },
+
+  //  新增采购单  选择商品 商品列表
+  purchaseSupplierProList: {
+    dataUrl: rootPath + 'purchase/purchase_supplier_product_list'
+  },
+
+  //  查询仓库
+  warehouseSearch: {
+    dataUrl: rootPath + 'warehouse/warehouse_search'
+  },
+
+  //  新建采购单
+  purchaseAdd: {
+    dataUrl: rootPath + 'purchase/purchase_add'
+  },
+  // 用户列表
+  userList: {
+    dataUrl: rootPath + 'powermgr/poweruserlist'
+  },
+  // 用户保存
+  userSave: {
+    dataUrl: rootPath + 'powermgr/save'
+  },
+  // 部门列表
+  deptList: {
+    dataUrl: rootPath + 'powermgr_dept/powerdeptlist'
+  },
+  // 部门保存
+  deptSave: {
+    dataUrl: rootPath + 'powermgr_dept/save'
+  },
+  // 部门删除
+  deptDel: {
+    dataUrl: rootPath + 'powermgr_dept/powerdeptdele'
+  },
+  // 菜单列表
+  menuList: {
+    dataUrl: rootPath + 'powermgr_function/powerfunctionlist'
+  },
+  // 菜单保存
+  menuSave: {
+    dataUrl: rootPath + 'powermgr_function/powerfunctionaddedit'
+  },
+  // 菜单删除
+  menuDel: {
+    dataUrl: rootPath + 'powermgr_function/powerdeptdele'
+  },
+  // 角色列表
+  roleList: {
+    dataUrl: rootPath + 'powermgr_role/powerrolelist'
+  },
+  // 角色保存
+  roleSave: {
+    dataUrl: rootPath + 'powermgr_role/save'
+  },
+  // 角色删除
+  roleDel: {
+    dataUrl: rootPath + 'powermgr_role/powerroledele'
+  },
+  // 登出
+  logOut: {
+    dataUrl: rootPath + 'powermgr/logout'
+  },
+  // 主页
+  main: {
+    dataUrl: rootPath + 'powermgr/main'
   }
 };
 

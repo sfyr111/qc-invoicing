@@ -4,7 +4,7 @@
 		<store-list-form></store-list-form>
 		  
 		<!-- 表单form -->
-		<store-list-grid @view-detail="viewDetail"></store-list-grid>
+		<store-list-grid @view-details="viewDetails"></store-list-grid>
 
 		<!-- 分页 -->
 		<el-pagination
@@ -14,7 +14,6 @@
 		  @current-change="handleCurrentChange"
 		  :total="totalLimits">
 		</el-pagination>
-	 <!--  <router-view></router-view> -->
 	</div>
 </template>
 
@@ -34,11 +33,11 @@ export default {
 		StoreListForm
 	},
 	methods: {
-		viewDetail (msg) {
+		viewDetails (msg) {
 			console.log(msg)
-			/*this.$router.push({
-				name: 'invProDetail'
-			})*/
+			this.$router.push({
+				name: 'inventoryDetails'
+			})
 		},
 
 		//	分页跳转

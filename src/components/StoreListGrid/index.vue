@@ -209,7 +209,7 @@ export default {
       	index: index,
       	obj: row
       }
-      this.$emit('view-detail', msg)
+      this.$emit('view-details', msg)
     }
   }
 }

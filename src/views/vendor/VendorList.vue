@@ -81,6 +81,7 @@
       },
       search (form) {
         this.form = form
+        this.pageNo=1
         this.initGrid()
       },
       delVendor (id) {

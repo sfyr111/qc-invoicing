@@ -9,25 +9,12 @@
 				<el-row>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		已确认下单
+				  		{{ obj.executeStatus || '&nbsp;' }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		时间：2017-01-01 15:00
-				  	</div>
-				  </el-col>
-				</el-row>
-
-				<el-row>
-				  <el-col :span="12">
-				  	<div class="grid-content bg-purple">
-				  		部分入库
-				  	</div>
-				  </el-col>
-				  <el-col :span="12">
-				  	<div class="grid-content bg-purple">
-				  		时间：2017-01-01 15:00
+				  		时间：{{ obj.executeDate }}
 				  	</div>
 				  </el-col>
 				</el-row>
@@ -35,12 +22,12 @@
 				<el-row>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		订单完结
+				  		{{ obj.inStatus || '&nbsp;' }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		时间：2017-01-01 15:00
+				  		时间：{{ obj.inDate || '&nbsp;' }}
 				  	</div>
 				  </el-col>
 				</el-row>
@@ -48,12 +35,25 @@
 				<el-row>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		财务已付款
+				  		{{ obj.overRemark || '&nbsp;' }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="12">
 				  	<div class="grid-content bg-purple">
-				  		时间：2017-01-01 15:00
+				  		时间：{{ obj.overDate }}
+				  	</div>
+				  </el-col>
+				</el-row>
+
+				<el-row>
+				  <el-col :span="12">
+				  	<div class="grid-content bg-purple">
+				  		{{ obj.payStatus || '&nbsp;' }}
+				  	</div>
+				  </el-col>
+				  <el-col :span="12">
+				  	<div class="grid-content bg-purple">
+				  		时间：{{ obj.payDate }}
 				  	</div>
 				  </el-col>
 				</el-row>
@@ -67,3 +67,14 @@
 	margin: 30px 0;
 }
 </style>
+
+<script>
+export default {
+	props: {
+		obj: {
+			type: Object,
+			default: {}
+		}
+	}
+}
+</script>

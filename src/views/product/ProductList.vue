@@ -41,7 +41,9 @@
           firstCategoryId: '',
           secondCategoryId: '',
           thirdCategoryId: '',
-          status: ''
+          status: '',
+          isSynchronize: '',
+          syncStatus: '',
         },
         loadingData: false,
         pageNo: 1,
@@ -67,6 +69,8 @@
           secondCategoryId: this.form.secondCategoryId || '',
           thirdCategoryId: this.form.thirdCategoryId || '',
           status: this.form.status || '',
+          isSynchronize: this.form.isSynchronize || '',
+          syncStatus: this.form.syncStatus || '',
           pageNo: this.pageNo,
           pageSize: this.pageSize
         };
@@ -78,7 +82,6 @@
           success: function (resp) {
             _this.loadingData=false
             _this.total = resp.data.total
-            console.log(resp)
           },
           fail: function (resp) {
             _this.loadingData=false
@@ -95,6 +98,7 @@
   			if (form) {
           this.form = form
         }
+        this.pageNo=1
         this.initGrid()
       },
       changePage (page) {

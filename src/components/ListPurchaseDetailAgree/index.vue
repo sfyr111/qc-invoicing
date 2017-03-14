@@ -11,53 +11,53 @@
 				<el-row>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		交货期限：深圳机顶盒萨科技发货
+				  		交货期限：{{ obj.deliveryDate }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		交货仓库：发哈咖啡萨科技会发生
+				  		交货仓库：{{ obj.warehouseName }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		交货地点：发哈咖啡萨科技会发生
-				  	</div>
-				  </el-col>
-				</el-row>
-
-				<el-row>
-				  <el-col :span="8">
-				  	<div class="grid-content bg-purple">
-				  		付款方式：深圳机顶盒萨科技发货
-				  	</div>
-				  </el-col>
-				  <el-col :span="8">
-				  	<div class="grid-content bg-purple">
-				  		付款约定：1344234324324
-				  	</div>
-				  </el-col>
-				  <el-col :span="8">
-				  	<div class="grid-content bg-purple">
-				  		发票类型：1344234324324
+				  		交货地点：{{ obj.warehouseAddress }}
 				  	</div>
 				  </el-col>
 				</el-row>
 
+				<!-- <el-row>
+				  <el-col :span="8">
+				  	<div class="grid-content bg-purple">
+				  		付款方式：{{ obj.payMethod }}
+				  	</div>
+				  </el-col>
+				  <el-col :span="8">
+				  	<div class="grid-content bg-purple">
+				  		付款约定：{{ obj.payAppoint }}
+				  	</div>
+				  </el-col>
+				  <el-col :span="8">
+				  	<div class="grid-content bg-purple">
+				  		发票类型：{{ obj.billType }}
+				  	</div>
+				  </el-col>
+				</el-row> -->
+
 				<el-row>
 				  <el-col :span="8">
+				  	<!-- <div class="grid-content bg-purple">
+				  		合同编号：{{ obj.contractCode }}
+				  	</div> -->
+				  </el-col>
+				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		合同编号：深圳机顶盒萨科技发货
+				  		订单有效期：{{ obj.validityDate }}
 				  	</div>
 				  </el-col>
 				  <el-col :span="8">
 				  	<div class="grid-content bg-purple">
-				  		订单有效期：1344234324324
-				  	</div>
-				  </el-col>
-				  <el-col :span="8">
-				  	<div class="grid-content bg-purple">
-				  		其他约定：1344234324324
+				  		其他约定：{{ obj.remark }}
 				  	</div>
 				  </el-col>
 				</el-row>
@@ -75,3 +75,14 @@
 	}
 }
 </style>
+
+<script>
+export default {
+	props: {
+		obj: {
+			type: Object,
+			default: {}
+		}
+	}
+}
+</script>
