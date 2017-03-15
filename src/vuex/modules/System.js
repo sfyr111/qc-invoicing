@@ -6,6 +6,7 @@ const state = {
   deptList: [],
   menuList: [],
   roleList: [],
+  userNav: [],
 };
 
 // getters
@@ -14,6 +15,7 @@ const getters = {
   getDeptList: state => state.deptList,
   getMenuList: state => state.menuList,
   getRoleList: state => state.roleList,
+  getUserNav: state => state.userNav,
 }
 
 const actions = {
@@ -153,6 +155,19 @@ const actions = {
 
     })
   },
+  userNav ({commit}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+    state.userNav=[]
+    util.getMyrequest(params).then(function (resp) {
+      commit(types.USER_NAV, resp.children || [])
+    })
+  },
 }
 
 const mutations = {
@@ -167,6 +182,9 @@ const mutations = {
   },
   [types.ROLE_LIST] (state, data) {
     state.roleList = data
+  },
+  [types.USER_NAV] (state, data) {
+    state.userNav = data
   },
 }
 

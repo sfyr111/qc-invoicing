@@ -46,7 +46,7 @@
           <el-input v-model="ruleForm.selfEmail"></el-input>
         </el-form-item>
         <el-form-item label="角色" label-width="100px" prop="roleId">
-          <el-select remote :loading="loadingRole" clearable @visible-change="remoteRole" v-model.number="ruleForm.roleId" placeholder="请选择角色">
+          <el-select remote :loading="loadingRole" clearable @visible-change="remoteRole" v-model="ruleForm.roleId" placeholder="请选择角色">
             <el-option v-for="role in roleList" :key="role.roleId" :label="role.roleName" :value="role.roleId"></el-option>
           </el-select>
         </el-form-item>

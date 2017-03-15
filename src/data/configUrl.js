@@ -151,6 +151,10 @@ const configUrl = {
   // 主页
   main: {
     dataUrl: rootPath + 'powermgr/main'
+  },
+  // 查询用户菜单
+  userNav: {
+    dataUrl: rootPath + 'powermgr/poweruserfunction'
   }
 };
 

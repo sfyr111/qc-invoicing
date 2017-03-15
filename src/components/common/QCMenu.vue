@@ -47,6 +47,8 @@
   </div>
 </template>
 <script>
+  import configUrl from '../../data/configUrl'
+  import { mapGetters } from 'vuex'
   export default {
      data () {
       return {
@@ -58,10 +60,26 @@
     },
     methods: {
       navInit() {
-
+        let opt = {
+        	url: configUrl.userNav.dataUrl,
+          type: 'post',
+          data: {
+        		node: 'root'
+          },
+          success: function (resp) {
+            console.log(resp)
+          },
+          fail: function (resp) {
+            console.log(resp)
+          }
+        }
+        this.$store.dispatch('userNav', opt);
       }
     },
     computed:{
+      ...mapGetters({
+      	userNav: 'getUserNav'
+      }),
       onRoutes(){
         return this.$route.path.replace('/','');
       }

@@ -1,7 +1,6 @@
 <template>
 	<div class="store_list_grid">
-		<template>
-		  <div>
+		<div>
 		    <el-table
 		      :data="list"
 		      border
@@ -147,8 +146,7 @@
 		        </template>
 		      </el-table-column>
 		    </el-table>
-		  </div>
-		</template>
+		</div>
 	</div>
 </template>
 
