@@ -84,7 +84,7 @@
       <el-button type="primary" @click="addProduct()" icon="plus">新增</el-button>
       <!--<el-button type="primary" @click="importSalePrice()" icon="upload2">批量导入销售价格</el-button>-->
       <el-button type="primary" @click="importProduct()" icon="upload2">批量导入商品</el-button>
-      <!--<el-button type="primary" @click="importVendorPrice()" icon="upload2">批量导入供应商价格</el-button>-->
+      <el-button type="primary" :loading="isSync" @click="syncProduct()" icon="upload">同步至京东</el-button>
       <!--<el-button type="primary" @click="exportProduct()" icon="share">批量导出商品信息</el-button>-->
     </el-button-group>
     <el-dialog class="up_box" :title="title" v-model="dialogFormVisible">
@@ -111,6 +111,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import configUrl from '../../data/configUrl'
+  import util from '../../utils/util'
   export default {
     props: {
       loadingData: {
@@ -179,6 +180,7 @@
         loadingThird: false,
         disabledThird: true,
         hasLoadingThird: false,
+        isSync: false,
       }
     },
     methods: {
@@ -203,6 +205,34 @@
       importVendorPrice () {
         this.title='批量导入供应商价格'
         this.dialogFormVisible=true
+      },
+      syncProduct() {
+      	if (this.isSync) {
+      		return
+        }
+        this.isSync=true
+        let _this = this
+        let opt = {
+          url: configUrl.productSync.dataUrl,
+          type: 'post',
+          success: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'success'
+            });
+            _this.isSync=false
+          },
+          fail: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            });
+            _this.isSync=false
+          }
+        };
+        util.getMyrequest(opt)
       },
       exportProduct () {
 

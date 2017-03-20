@@ -115,7 +115,7 @@ export default {
 				supplierCode: '',				//	供货方code	
 			},
 			isCanCheckSelectProList: true,		//	选择商品查询按钮请求节流
-
+			isSubmitOrder: true,							//	确认制单节流
 		}
 	},
 	components: {
@@ -197,6 +197,12 @@ export default {
 					discountRate = 0
 				}
 
+				if (!isSubmitOrder) {
+					return
+				}
+
+				this.isSubmitOrder = false
+
 				let productList = []
 				let self = this
 				this.tabData.forEach(function (item) {
@@ -242,7 +248,8 @@ export default {
 						})
 					},
 					fail: function (res) {
-						self.$message.error('添加商品列表失败')
+						self.$message.error('制单失败')
+						self.isSubmitOrder = true
 					}
 				}
 

@@ -24,6 +24,10 @@ const configUrl = {
   productDetail: {
     dataUrl: rootPath + 'product/getProductDetail'
   },
+  // 查看商品
+  productSync: {
+    dataUrl: rootPath + 'product/syncSku'
+  },
   // CategoryList
   categoryList: {
     dataUrl: rootPath + 'product/getCategoryForSelect'

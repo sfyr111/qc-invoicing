@@ -24,6 +24,14 @@
 		      </el-table-column>
 
 		      <el-table-column
+		        label="京东单号"
+		        width="180"
+		        prop="jdSerialNumber"
+		        sortable
+		        align="center">
+		      </el-table-column>
+
+		      <el-table-column
 		        label="供应商"
 		        width="180"
 		        prop="supplierName"
