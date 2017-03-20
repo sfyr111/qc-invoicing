@@ -7,7 +7,16 @@
 		<list-purchase-detail-head v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :obj="getPurchaseOrderDetail.purchaseOrderDetailDTO"></list-purchase-detail-head>
 
 		<!-- tab -->
-		<list-purchase-detail-grid v-if="getPurchaseOrderDetail.purchaseItemList" :table-data="getPurchaseOrderDetail.purchaseItemList"></list-purchase-detail-grid>
+		<list-purchase-detail-grid :table-data="getPurchaseOrderDetailTab"></list-purchase-detail-grid>
+
+		<!-- 分页 -->
+    <el-pagination
+      layout="prev, pager, next"
+      :page-size="pageSize"
+      :current-page="pageNo" 
+      @current-change="handleCurrentChange"
+      :total="totalLimits">
+    </el-pagination>
 
 		<!-- 合计 -->
 		<list-purchase-detail-total v-if="getPurchaseOrderDetail.purchaseOrderDetailDTO" :total-data="getPurchaseOrderDetail.purchaseOrderDetailDTO" :detail="getPurchaseOrderDetail"></list-purchase-detail-total>
@@ -82,7 +91,12 @@ export default {
 				moneyNum: ''
 			},
 			serialNumber: '',								//	采购单号
+			pageNo: 1,											//	当前页
+			pageSize: 10,										//	分页条数
+			totalLimits: 0,									//	分页总条数
+			isCanCheck: true,							//	分页限流
 			detailUrl: configUrl.listPurchaseDetail.dataUrl,			//	详情URL
+			detailListUrl: configUrl.purchaseOrderItemDetail.dataUrl,			//	详情URL
 		}
 	},
 	components: {
@@ -97,16 +111,18 @@ export default {
 
 	created () {
 		let query = this.$route.query
-		console.log(query)
 		this.serialNumber = query.serialNumber
 
 		//	初始化详情
 		this.getDetail()
+
+		//	初始化详情列表
+		this.checkDetailList()
 	},
 
 	methods: {
 		//	 vuex  actions
-		...mapActions(['purchaseOrderDetail']),
+		...mapActions(['purchaseOrderDetail', 'purchaseOrderDetailTab']),
 
 		//	请款弹窗
 		showPleasePayBox () {
@@ -142,11 +158,40 @@ export default {
 			}
 
 			this.purchaseOrderDetail(opt)
+		},
+
+		//	查询详情列表
+		checkDetailList () {
+			let self = this
+			let opt = {
+				type: 'get',
+				url: this.detailListUrl,
+				data: {
+					serialNumber: this.serialNumber,
+					pageNo: this.pageNo,
+					pageSize: this.pageSize
+				},
+				success: function (res) {
+					self.totalLimits = res.data.total
+					console.log(self.totalLimits)
+				},
+				fail: function (res) {
+					self.$message.error('获取详情列表失败')
+				}
+			}
+
+			this.purchaseOrderDetailTab(opt)
+		},
+
+		//	分页点击
+		handleCurrentChange (index) {
+			this.pageNo = index
+			this.checkDetailList()
 		}
 	},
 
 	computed: {
-		...mapGetters(['getPurchaseOrderDetail'])
+		...mapGetters(['getPurchaseOrderDetail', 'getPurchaseOrderDetailTab'])
 	}
 }
 </script>

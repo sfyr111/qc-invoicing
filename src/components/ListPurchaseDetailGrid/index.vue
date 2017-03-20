@@ -177,21 +177,6 @@ export default {
 			default: []
 		}
 	},
-  data () {
-    return {
-    	tabH: 100,				//	表格高度
-    }
-  },
-  mounted () {
-  	this.$nextTick(function () {
-  		let h = this.$el.querySelector('.el-table__body').offsetHeight + 55
-  		//alert(h)
-  		if (h >= 442) {
-  			h = 442
-  		} 
-  		this.tabH  = h 
-  	})
-  },
   methods: {
     //	查看详情
     handleInfo(index, row) {

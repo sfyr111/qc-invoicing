@@ -62,6 +62,7 @@ export default {
 
 		//	分页跳转
 		handleCurrentChange(val) {
+      console.log(55)
 	    this.checkParams.pageNo = val
 
       //  跳转页码 刷新数据
@@ -119,13 +120,12 @@ export default {
         url: this.listUrl,
         data: data,
         success: function (res) {
-          console.log(res)
           self.isCanCheck = true
           self.totalLimits = res.data.total
         },
         fail: function (err) {
           self.isCanCheck = true
-           self.$message.error('查询列表数据失败')
+          self.$message.error('查询列表数据失败')
         }
       }
 

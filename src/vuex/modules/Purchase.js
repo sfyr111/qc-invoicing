@@ -4,6 +4,7 @@ import util from '../../utils/util'
 const state = {
   purchaseOrderList: [],					//	采购单列表
   purchaseOrderDetail: {},				//	采购单详情
+  purchaseOrderDetailTab: [],        //  采购单详情tab
   supplierList: [],								//	查询供货方列表
   categoryListTree: [],						//	商品分类菜单列表
   purSelectProList: {},						//	新增采购选择商品列表
@@ -18,6 +19,9 @@ const getters = {
 
 	//	采购单详情
   getPurchaseOrderDetail: state => state.purchaseOrderDetail,
+
+  //  采购单详情列表
+  getPurchaseOrderDetailTab: state => state.purchaseOrderDetailTab,
 
 	//	采购单新增 供货方列表
   getSupplierList: state => state.supplierList,
@@ -63,7 +67,22 @@ const actions = {
     }
 
     util.getMyrequest(params).then(function (resp) {
-      commit(types.PURCHASEDETAIL, resp.data)
+      commit(types.PURCHASEORDERDETAIL, resp.data)
+    })
+  },
+
+  //  采购单详情列表
+  purchaseOrderDetailTab ({commit, state}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+
+    util.getMyrequest(params).then(function (resp) {
+      commit(types.PURCHASEORDERDETAILTABA, resp.data.rows)
     })
   },
 
@@ -156,8 +175,13 @@ const mutations = {
   },
 
   //	采购单详情
-  [types.PURCHASEDETAIL] (state, data) {
+  [types.PURCHASEORDERDETAIL] (state, data) {
     state.purchaseOrderDetail = data
+  },
+
+  //  采购单详情列表
+  [types.PURCHASEORDERDETAILTABA] (state, data) {
+    state.purchaseOrderDetailTab = data
   },
 
   //	新增采购单  查询供货方列表

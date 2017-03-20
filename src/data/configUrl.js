@@ -150,11 +150,15 @@ const configUrl = {
   },
   // 主页
   main: {
-    dataUrl: rootPath + 'powermgr/main'
+    dataUrl: rootPath + '/login'
   },
   // 查询用户菜单
   userNav: {
     dataUrl: rootPath + 'powermgr/poweruserfunction'
+  },
+  // 查询用户菜单
+  purchaseOrderItemDetail: {
+    dataUrl: rootPath + 'purchase/purchase_order_item_detail'
   }
 };
 

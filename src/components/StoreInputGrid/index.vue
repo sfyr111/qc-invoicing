@@ -78,15 +78,9 @@
 
 <script>
 export default {
-  props: {
-    tableData: {
-      type: Array,
-      default: []
-    }
-  },
 	data () {
 		return {
-			/*tableData: [
+			tableData: [
         {
           date: '2016-05-02',
           name: '王小虎',
@@ -137,7 +131,7 @@ export default {
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
         }
-      ]*/
+      ]
 		}
 	},
 

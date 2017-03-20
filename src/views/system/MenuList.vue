@@ -206,6 +206,7 @@
         if (this.loadingData) {
           return
         }
+        let _this = this
         let data = {
           functionId: functionId,
         }
@@ -214,6 +215,11 @@
           data: data,
           type: 'post',
           success: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'success'
+            });
             _this.initGrid()
           },
           fail: function (resp) {
