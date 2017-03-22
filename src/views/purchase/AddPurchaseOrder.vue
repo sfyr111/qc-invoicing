@@ -26,7 +26,7 @@
 
 		<!-- 确认制单按钮-->
 		<div class="confirm_system">
-			<el-button type="primary" size="large" @click="confirm">确认制单</el-button>
+			<el-button type="primary" size="large" @click="confirm" :class="{'active': !isSubmitOrder}">确认制单</el-button>
 		</div>
 
 
@@ -74,6 +74,11 @@
 			min-width: 100px;
 		}
 	}
+
+	.el-button--primary.active{
+		background: #ccc;
+		border: 1px solid #ccc;
+	}
 }
 </style>
 
@@ -104,6 +109,7 @@ export default {
 			isReturn: 0,											//	类型为采购
 			checkSelectProListParams: {
 				productId: '',				//	商品编号
+				skuCode: '',					//	sku编码
 				productName: '',			//	商品名称
 				brand: '',							//	品牌
 				supplierName: '',				//	供应商名称
@@ -197,7 +203,7 @@ export default {
 					discountRate = 0
 				}
 
-				if (!isSubmitOrder) {
+				if (!this.isSubmitOrder) {
 					return
 				}
 
@@ -336,7 +342,8 @@ export default {
 			this.checkSelectProListParams.productId = msg.productId
 			this.checkSelectProListParams.productName = msg.productName
 			this.checkSelectProListParams.brand = msg.brand
-
+			this.checkSelectProListParams.skuCode = msg.skuCode
+			
 			//	采购选择商品列表
 			this.checkSelectProList()
 		},
@@ -368,7 +375,7 @@ export default {
 
 		//	选择商品 分类菜单选择
 		selectProTreeClick (data) {
-			let index = data.$treeNodeId
+			let index = data.level
 			
 			switch (index) {
 				case 1:

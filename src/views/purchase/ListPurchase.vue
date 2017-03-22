@@ -42,7 +42,7 @@ export default {
         pageNo: 1,                // 当前页
         pageSize: 10,              //  每页条数
       },
-      input: '',                             
+      input: ''                       
 		}
 	},
 	components: {
@@ -54,6 +54,8 @@ export default {
   created () {
     //  初始化列表
     this.check(this.checkParams)
+
+    this.username = window.user ? window.user.userName : "用户名"
   },
 
 	methods: {

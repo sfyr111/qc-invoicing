@@ -58,11 +58,20 @@ export default new Router({
           name: 'storageInputDetails',
           component: page.StorageInputDetails
         },
+        //  出库管理
         {
           path: '/storageOutput',
           name: 'storageOutput',
           component: page.StorageOutput
-        },{
+        },
+        //  出库管理详情
+        {
+          path: '/storageOutputDetails',
+          name: 'storageOutputDetails',
+          component: page.StorageOutputDetails
+        },
+
+        {
           path: '/financeList',
           name: 'financeList',
           component: page.FinanceList

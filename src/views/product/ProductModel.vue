@@ -1,13 +1,18 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName">
       <el-tab-pane label="商品基本信息" name="first">
         <product-model-base
-        :submit-suc="submitSuc"
+        @submit-suc="submitSuc"
         :product-id="productId"></product-model-base>
       </el-tab-pane>
-      <el-tab-pane :disabled="disableSecond" label="供应商价格信息" name="second">
-        <product-model-price></product-model-price>
+      <el-tab-pane
+        :disabled="disableSecond"
+        label="供应商价格信息"
+        name="second">
+        <product-model-price
+          :product-id="productId">
+        </product-model-price>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -55,40 +60,13 @@
       }
     },
     methods: {
-      handleClick (tab, event) {
-        if (tab.name === 'second') {
-          if (this.hasLoad) {
-            return
-          }
-          this.initPrice()
-        }
-      },
       submitSuc (resp) {
         this.activeName = 'second'
         if (resp.data) {
-          this.id = resp.data.productId
+          this.id = resp.data
         }
         this.addSuc = true
-        this.initPrice()
       },
-      initPrice () {
-        let _this = this
-        let opt = {
-          url: configUrl.supplierContractList.dataUrl,
-          data: {
-            supplierId: this.supplierId
-          },
-          type: 'get',
-          success: function (resp) {
-            _this.hasLoad=true
-            console.log(resp)
-          },
-          fail: function (resp) {
-            console.log(resp)
-          }
-        }
-        this.$store.dispatch('supplierContractList', opt)
-      }
     }
   }
 </script>

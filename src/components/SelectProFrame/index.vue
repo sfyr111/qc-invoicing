@@ -3,25 +3,31 @@
 		<!-- 查询 -->
 		<el-form ref="form" :model="form" label-width="75px">
 			<el-row>
-			  <el-col :span="7">
+			  <el-col :span="5">
 			  	<el-form-item label="商品编号:">
 			  	    <el-input v-model="form.productId"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
-			  <el-col :span="7">
+			  <el-col :span="5">
 			  	<el-form-item label="商品名称:">
 			  	    <el-input v-model="form.productName"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
-			  <el-col :span="7">
+			  <el-col :span="5">
 			  	<el-form-item label="品牌:">
 			  	    <el-input v-model="form.brand"></el-input>
 			  	</el-form-item>
 			  </el-col>
 
-			  <el-col :span="3">
+			  <el-col :span="5">
+			  	<el-form-item label="SKU编码:">
+			  	    <el-input v-model="form.skuCode"></el-input>
+			  	</el-form-item>
+			  </el-col>
+
+			  <el-col :span="4">
 			  	<el-button type="primary" @click="checkList">查询</el-button>
 			  </el-col>
 			  
@@ -40,6 +46,7 @@
 		  <el-col :span="20" class="tab">
 		  	<!-- tab -->
 		  	<el-table
+		  			max-height="422"
 		  	    :data="product.rows"
 		  	    border
 		  	    style="width: 100%"
@@ -130,6 +137,7 @@
 	.el-input__inner {
 		width: 75%;
 		height: 30px;
+		min-width: 170px;
 	}
 
 	.el-form-item{
@@ -137,6 +145,10 @@
 	}
 
 	.el-col-3 {
+		text-align: right;
+	}
+
+	.el-col-4{
 		text-align: right;
 	}
 
@@ -197,6 +209,7 @@ export default {
 			form: {
 				productId: '',				//	商品编号
 				productName: '',			//	商品名称
+				skuCode: '',					//	sku编码
 				brand: ''						//	品牌
 			},
 			

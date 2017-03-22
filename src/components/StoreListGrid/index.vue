@@ -3,7 +3,7 @@
 		<template>
 		  <div>
 		    <el-table
-		      :data="tableData"
+		      :data="list"
 		      border
 		      style="width: 100%"
 		      fit>
@@ -21,7 +21,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.productId }}</span>
 		        </template>
 		      </el-table-column>
 		      <el-table-column
@@ -29,7 +29,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.productName }}</span>
 		        </template>
 		      </el-table-column>
 		      <el-table-column
@@ -37,7 +37,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.category }}</span>
 		        </template>
 		      </el-table-column>
 		      <el-table-column
@@ -45,7 +45,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.productVersion }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -54,7 +54,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.skuCode }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -63,7 +63,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.productCode }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -72,7 +72,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.brand }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -81,7 +81,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.skuQuantity }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -90,7 +90,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.lockedQuantity }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -99,7 +99,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.salesQuantity }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -108,7 +108,7 @@
 		        width="180"
 		        align="center">
 		        <template scope="scope">
-		          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+		          <span style="margin-left: 10px">{{ scope.row.stockStatus }}</span>
 		        </template>
 		      </el-table-column>
 
@@ -138,60 +138,14 @@
 
 <script>
 export default {
+	props: {
+		list: {
+			type: Array,
+			default: []
+		}
+	},
   data () {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
     }
   },
   methods: {

@@ -115,7 +115,7 @@
 		        <template scope="scope">
 		          <el-button
 		            size="small"
-		            @click="handleInfo(scope.$index, scope.row)">查看详情</el-button>
+		            @click="viewDetails(scope.$index, scope.row)">查看详情</el-button>
 		        </template>
 		      </el-table-column>
 		    </el-table>
@@ -212,6 +212,14 @@ export default {
           address: '上海市普陀区金沙江路 1516 弄'
         }
       ]
+		}
+	},
+
+	methods: {
+		viewDetails () {
+			this.$router.push({
+				name: 'storageOutputDetails'
+			})
 		}
 	}
 }

@@ -28,6 +28,7 @@ import ListReturnDetail from './purchase/ListReturnDetail'
 import AddPurchaseOrder from './purchase/AddPurchaseOrder'
 import AddReturnOrder from './purchase/AddReturnOrder'
 import StorageInputDetails from './storage/StorageInputDetails'
+import StorageOutputDetails from './storage/StorageOutputDetails'
 
 const components = {
   Main,
@@ -59,7 +60,8 @@ const components = {
   ListReturnDetail,
   AddPurchaseOrder,
   AddReturnOrder,
-  StorageInputDetails
+  StorageInputDetails,
+  StorageOutputDetails
 };
 
 export default components;

@@ -100,12 +100,16 @@ export default {
 		}
 	},
 
+	created () {
+		this.principalMan = window.user ? window.user.userName : ''
+	},
+
 	methods: {
 		//	选择供货方
 		selectSupplier () {
 			//	获取选中的对象
 			this.form.supplierCompany = util.getKeyObj('name', this.list, this.form.supplierCompanyName)
-			console.log(util.getKeyObj(this.form.supplierCompanyName, this.list))
+			//console.log(util.getKeyObj(this.form.supplierCompanyName, this.list))
 			this.form.supplierName = this.form.supplierCompany.contacts
 			this.form.supplierPhone = this.form.supplierCompany.contactsPhone
 

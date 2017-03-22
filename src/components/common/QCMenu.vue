@@ -29,7 +29,7 @@
         		node: 'root'
           },
           success: function (resp) {
-            console.log(resp)
+
           },
           fail: function (resp) {
             _this.$message({

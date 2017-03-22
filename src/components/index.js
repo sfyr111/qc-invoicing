@@ -20,6 +20,7 @@ import ListPurchaseForm from './ListPurchaseForm/index.vue'
 import ListPurchaseGrid from './ListPurchaseGrid/index.vue'
 import ProductModelBase from './ProductModelBase/index.vue'
 import ProductModelPrice from './ProductModelPrice/index.vue'
+import SelectPriceFrame from './SelectPriceFrame/index.vue'
 import ListPurchaseDetailHead from './ListPurchaseDetailHead/index.vue'
 import ListPurchaseDetailGrid from './ListPurchaseDetailGrid/index.vue'
 import ListPurchaseDetailTotal from './ListPurchaseDetailTotal/index.vue'
@@ -87,6 +88,7 @@ export {
   InventoryDetailsGrid,
   InventoryDetailsWarehouse,
   StoreInputHead,
-  StoreInputGrid
+  StoreInputGrid,
+  SelectPriceFrame
 }
 

@@ -2,29 +2,33 @@
 	<div class="storage_input_details">
 		<!-- head -->
 		<div class="storage_input_details_head">
-	  <el-row :gutter="20">
-	    <el-col :span="6">
-	    	<div>入库单号：5456121</div>
-	    </el-col>
+		  <el-row :gutter="20">
+		    <el-col :span="6">
+		    	<div>入库单号：5456121</div>
+		    </el-col>
 
-	    <el-col :span="6">
-	    	<div>建单时间：2016-01-01</div>
-	    </el-col>
+		    <el-col :span="6">
+		    	<div>建单时间：2016-01-01</div>
+		    </el-col>
 
-	    <el-col :span="6">
-	    	<div>入库类型：采购入库</div>
-	    </el-col>
+		    <el-col :span="6">
+		    	<div>入库类型：采购入库</div>
+		    </el-col>
 
-			<el-col :span="6">
-	    	<div>&nbsp;</div>
-	    </el-col>
-	  </el-row>
+				<el-col :span="6">
+		    	<div>&nbsp;</div>
+		    </el-col>
+		  </el-row>
 
-    <el-row :gutter="20">
-      <el-col :span="6">
-      	<div>入库仓库：南山仓</div>
-      </el-col>
-    </el-row>
+	    <el-row :gutter="20">
+	      <el-col :span="6">
+	      	<div>入库仓库：南山仓</div>
+	      </el-col>
+
+	      <el-col :span="6">
+	      	<div>退货单号：234567</div>
+	      </el-col>
+	    </el-row>
   	</div>
 
   	<!-- tab -->
@@ -122,6 +126,11 @@
 					     
 		    </el-table>
   	</div>
+
+  	<!-- 备注 -->
+  	<div class="remark">
+  		备注：
+  	</div>
 	</div>
 </template>
 
@@ -133,6 +142,11 @@
 		.el-col div{
 			line-height: 40px;
 		}
+	}
+
+	.remark{
+		font-size: 14px;
+		margin: 20px 0;
 	}
 }
 </style>

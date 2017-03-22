@@ -1,4 +1,4 @@
-let devRootPath = 'http://192.168.16.210:9080/qc-invoicing/';
+let devRootPath = 'http://192.168.16.161:8080/qc-invoicing/';
 let proRootPath = 'http://eoms.17cai.com:8081/qc-invoicing/';
 let rootPath = process.env.NODE_ENV === "production" ? proRootPath : devRootPath;
 let imgPath = process.env.NODE_ENV === "production" ? "http://jl.17cai.com/static/img/" : "http://127.0.0.1/static/img/";
@@ -27,6 +27,18 @@ const configUrl = {
   // 查看商品
   productSync: {
     dataUrl: rootPath + 'product/syncSku'
+  },
+  // 查询供应商价格列表
+  supplierPriceList: {
+    dataUrl: rootPath + 'product/getSupplierPriceList'
+  },
+  // 根据特征分类查询特征组合
+  productFeatureList: {
+    dataUrl: rootPath + 'product/getFeatureList'
+  },
+  // 根据特征分类查询特征组合
+  productSuppInfo: {
+    dataUrl: rootPath + 'product/getProductSuppInfo'
   },
   // CategoryList
   categoryList: {
@@ -163,6 +175,10 @@ const configUrl = {
   // 查询用户菜单
   purchaseOrderItemDetail: {
     dataUrl: rootPath + 'purchase/purchase_order_item_detail'
+  },
+  //  查询库存列表
+  storageList: {
+    dataUrl: rootPath + 'stock/list'
   }
 };
 
