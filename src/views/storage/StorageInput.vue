@@ -1,7 +1,7 @@
 <template>
   <div class="store_input">
     <!-- 查询条件 -->
-    <store-input-head></store-input-head>
+    <store-input-head @add-order="addOrder"></store-input-head>
 
     <!-- tab -->
     <store-input-grid @view-details="viewDetials"></store-input-grid>
@@ -21,9 +21,17 @@ export default {
 	},
 
 	methods: {
+		//	查看详情
 		viewDetials () {
 			this.$router.push({
 				name: 'storageInputDetails'
+			})
+		},
+
+		//	新建入库单
+		addOrder () {
+			this.$router.push({
+				name: 'addStorageInput'
 			})
 		}
 	}

@@ -93,7 +93,7 @@
         class="avatar-uploader"
         :action="action"
         :show-file-list="true"
-        :on-success="handleAvatarScucess"
+        :on-success="handleAvatarSuccess"
         :data="{}"
         :auto-upload="true"
         :on-error="handleAvatarError"
@@ -237,7 +237,7 @@
       exportProduct () {
 
       },
-      handleAvatarScucess (response, file, fileList) {
+      handleAvatarSuccess (response, file, fileList) {
         if (!response.success) {
           this.$refs.upload.clearFiles()
           this.$message({

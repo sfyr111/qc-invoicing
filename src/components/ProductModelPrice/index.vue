@@ -179,35 +179,92 @@
         this.multipleSelection = val
       },
 
-      //	选择商品
+      //	新增商品
       selectPro () {
         this.isShowSelectPrice=true
       },
 
-      //	删除商品
+      //	删除供应商
       removePro () {
-        console.log('remove')
+      	// 全选
+      	if (this.multipleSelection && this.multipleSelection.length===this.dataList.length) {
+          this.dataList = []
+          return
+        }
+      	let idSet = new Set();
+        this.multipleSelection.map((item)=>{ idSet.add(item.supplierCode) })
+        let result = []
+        this.dataList.filter((data) => {
+        	let dataVal = data.supplierCode
+          idSet.forEach((supplierCode) => {
+        		if (supplierCode !== dataVal) {
+              result.push(data)
+            }
+          })
+        })
+        this.dataList = result
       },
+
+      // 最小值
       inputPriceblur (e, index) {
         let target = e.target
-        if (Number(target.value) < 1) {
-        	this.dataList[index].price=1
+        if (Number(target.value) < 0) {
+        	this.dataList[index].price=0
           return
         }
       },
+
       onSubmit () {
-      	console.log('submit')
+      	if (this.hasSubmit) {
+      		return
+        }
+      	let _this = this
+        this.hasSubmit = true
+      	let opt = {
+      		url: configUrl.productSupplierPriceSave.dataUrl,
+          type: 'post',
+          data: {
+            productId: this.productId,
+            supplierDto: this.dataList
+          },
+          success: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'success'
+            })
+            _this.$emit('price-suc', resp)
+          },
+          fail: function (resp) {
+            _this.hasSubmit = false
+      			_this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            })
+          }
+        }
+        util.getMyCompRequest(opt)
       },
+
       closeD() {
         this.isShowSelectPrice=false
       },
       pushList(list) {
         this.isShowSelectPrice=false
         if (list && list.length >0) {
-        	console.log(list[0])
-          this.dataList.push(list[0])
+            let str = list[0].supplierCode
+            if (!util.kasKey(this.dataList, 'supplierCode', str)){
+              this.dataList = this.dataList.concat(list)
+            } else {
+            	this.$message({
+                showClose: true,
+                message: '所添加供应商价格已存在',
+                type: 'error'
+              })
+            }
         }
-      }
+      },
     }
   }
 </script>

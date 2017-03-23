@@ -228,7 +228,6 @@
       	this.$emit('d-close')
       },
       selectPriceList() {
-      	console.log(this.supplierProduct)
         this.$emit('push-list', this.supplierProduct)
         this.id=''
         this.$store.dispatch('clrPric')

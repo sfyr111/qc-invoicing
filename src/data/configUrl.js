@@ -24,13 +24,17 @@ const configUrl = {
   productDetail: {
     dataUrl: rootPath + 'product/getProductDetail'
   },
-  // 查看商品
+  // 同步商品
   productSync: {
     dataUrl: rootPath + 'product/syncSku'
   },
   // 查询供应商价格列表
   supplierPriceList: {
     dataUrl: rootPath + 'product/getSupplierPriceList'
+  },
+  // 商品供应商价格保存
+  productSupplierPriceSave: {
+    dataUrl: rootPath + 'product/addOrEditSuppSkuPrice'
   },
   // 根据特征分类查询特征组合
   productFeatureList: {

@@ -3,7 +3,7 @@
     <!-- 标题 -->
     <pos-head title="采购列表"></pos-head>
     <!-- 采购列表查询 -->
-    <list-purchase-form @add-purchase-order="addPurchaseOrder" @on-check="check"></list-purchase-form>
+    <list-purchase-form @add-purchase-order="addPurchaseOrder" @on-check="check" @upload-file="upload"></list-purchase-form>
 
     <!-- tab表格 -->
     <list-purchase-grid @view-detail="viewDetail" :list="getPurchaseOrderList"></list-purchase-grid>
@@ -16,6 +16,26 @@
       @current-change="handleCurrentChange"
       :total="totalLimits">
     </el-pagination>
+
+    <!-- 批量上传 -->
+    <el-dialog title="批量上传采购单" v-model="dialogVisible" size="tiny">
+      <el-upload
+        ref="upload"
+        multiple
+        :accept="acceptType"
+        :on-success="uploadSuccess"
+        :on-error="uploadError"
+        class="upload-demo"
+        action="http://192.168.16.161:8080/qc-invoicing/import/purchaseOrder"
+        :on-change="fileUpload"
+        :file-list="fileList">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传xlsx/xls文件，且不超过2M</div>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">完成</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,7 +62,10 @@ export default {
         pageNo: 1,                // 当前页
         pageSize: 10,              //  每页条数
       },
-      input: ''                       
+      input: '',
+      dialogVisible: false,
+      fileList: [],               //  批量上传类型
+      acceptType: '.xlsx' || '.xls'                       
 		}
 	},
 	components: {
@@ -53,7 +76,7 @@ export default {
 
   created () {
     //  初始化列表
-    this.check(this.checkParams)
+    this.checkList(this.checkParams)
 
     this.username = window.user ? window.user.userName : "用户名"
   },
@@ -64,11 +87,10 @@ export default {
 
 		//	分页跳转
 		handleCurrentChange(val) {
-      console.log(55)
 	    this.checkParams.pageNo = val
 
       //  跳转页码 刷新数据
-      this.check(this.checkParams)
+      this.checkList(this.checkParams)
     },
 
     //	查看详情
@@ -105,11 +127,12 @@ export default {
       //  查询按钮
       let data = {}
       if (isCheck) {
+        this.checkParams.pageNo = 1
         let obj = {
           pageNo: 1,
           pageSize: 10
         }
-        data = Object.assign(obj, msg)
+        data = Object.assign(msg, obj)
       }
       //  分页或初始化
       else {
@@ -134,8 +157,38 @@ export default {
       this.purchaseOrderList(opt)
     },
 
-    input () {
-      console.log(this.input)
+    //  批量上传弹窗
+    upload () {
+      this.dialogVisible = true
+    },
+
+    //  点击批量上传
+    fileUpload () {
+      console.log(555)
+    },
+
+    //  上传成功
+    uploadSuccess (res) {
+      if (!res.success) {
+        let err = res.msg
+        this.uploadErrorFun(err)
+      }
+      else {
+        this.checkParams.pageNo = 1
+        this.checkList(this.checkParams)
+      }
+      
+    },
+
+    //  上传失败
+    uploadError (err) {
+      this.uploadErrorFun(err)
+    },
+
+    //  上传失败
+    uploadErrorFun (err) {
+      this.$refs.upload.clearFiles()
+      alert(err)
     }
 	},
 

@@ -213,12 +213,31 @@ const util = {
   //  根据key 取出数组里面对应匹配的obj   key----数组对象要比较的属性  ayy----对象数组  val----比较的值
   getKeyObj (key, arr, val) {
     let obj = {}
-    
+
     for (var i = 0; i < arr.length; i ++) {
       if (val === arr[i][key]) {
         obj = arr[i]
         return obj
       }
+    }
+  },
+
+  // 数组字段查询
+  kasKey(arr, key, str) {
+	  if (!Array.isArray(arr)) {
+	    return
+    }
+    if (Object.prototype.toString.call(key) !== "[object String]") {
+      return
+    }
+    let len = arr.length
+    let index = -1
+    while (++index < len) {
+	    let val = arr[index]
+	    if (val[key] === str) {
+	      return true
+      }
+      continue
     }
   }
 }

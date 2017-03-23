@@ -43,6 +43,10 @@ import InventoryDetailsGrid from './InventoryDetailsGrid'
 import InventoryDetailsWarehouse from './InventoryDetailsWarehouse'
 import StoreInputHead from './StoreInputHead'
 import StoreInputGrid from './StoreInputGrid'
+import AddStorageHead from './AddStorageHead'
+import AddStorageGrid from './AddStorageGrid'
+import StorageSelectPro from './StorageSelectPro'
+import AddStorageInfo from './AddStorageInfo'
 
 export {
   QCHeader,
@@ -89,6 +93,10 @@ export {
   InventoryDetailsWarehouse,
   StoreInputHead,
   StoreInputGrid,
+  AddStorageHead,
+  AddStorageGrid,
+  StorageSelectPro,
+  AddStorageInfo,
   SelectPriceFrame
 }
 

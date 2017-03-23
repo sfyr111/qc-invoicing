@@ -46,7 +46,7 @@
   			<el-col :span="6" class="btn_container">
       	  <el-form-item label-width="20px">
       	  	<el-button type="primary" @click="onSubmit">查询</el-button>
-            <el-button type="info" @click="onSubmit">新建入库单</el-button>
+            <el-button type="info" @click="addOrder">新建入库单</el-button>
           </el-form-item>
         </el-col>
   	  </el-row>
@@ -80,8 +80,14 @@ export default {
 	},
 
 	methods: {
+		//	查询
 		onSubmit () {
 			console.log('submit')
+		},
+
+		// 新建入库单
+		addOrder () {
+			this.$emit('add-order')
 		}
 	}
 }

@@ -58,6 +58,12 @@ export default new Router({
           name: 'storageInputDetails',
           component: page.StorageInputDetails
         },
+        //  新增入库单
+        {
+          path: '/addStorageInput',
+          name: 'addStorageInput',
+          component: page.AddStorageInput
+        },
         //  出库管理
         {
           path: '/storageOutput',

@@ -22,7 +22,7 @@
 			  </el-col>
 
 			  <el-col :span="5">
-			  	<el-form-item label="SKU编码:">
+			  	<el-form-item label="供应商:">
 			  	    <el-input v-model="form.skuCode"></el-input>
 			  	</el-form-item>
 			  </el-col>
@@ -47,7 +47,7 @@
 		  	<!-- tab -->
 		  	<el-table
 		  			:max-height="maxHeight"
-		  	    :data="product.rows"
+		  	    :data="tabData"
 		  	    border
 		  	    style="width: 100%"
 		  	    @selection-change="handleSelectionChange">
@@ -59,7 +59,7 @@
 		  	      label="商品编码"
 		  	    >
 		  	      <template scope="scope">
-		  	      	{{ scope.row.productId }}
+		  	      	{{ scope.row.name }}
 		  	      </template>
 		  	    </el-table-column>
 
@@ -67,8 +67,8 @@
 		  	      label="商品名称"
 		  	    >
 		  	      <template scope="scope">
-		  	      	<span class="overfl-oneline" :title="scope.row.productName">
-		  	      		{{ scope.row.productName }}
+		  	      	<span class="overfl-oneline" :title="scope.row.name">
+		  	      		{{ scope.row.name }}
 		  	      	</span>
 		  	      </template>
 		  	    </el-table-column>
@@ -77,8 +77,8 @@
 		  	      label="商品分类"
 		  	    >
 		  	      <template scope="scope">
-		  	      	<span class="overfl-oneline" :title="scope.row.category">
-		  	      		{{ scope.row.category }}
+		  	      	<span class="overfl-oneline" :title="scope.row.date">
+		  	      		{{ scope.row.date }}
 		  	      	</span>
 		  	      </template>
 		  	    </el-table-column>
@@ -87,8 +87,8 @@
 		  	      label="商品版本"
 		  	    >
 		  	      <template scope="scope">
-		  	      	<span class="overfl-oneline" :title="scope.row.productVersion">
-		  	      		{{ scope.row.productVersion }}
+		  	      	<span class="overfl-oneline" :title="scope.row.date">
+		  	      		{{ scope.row.date }}
 		  	      	</span>
 		  	      </template>
 		  	    </el-table-column>
@@ -96,25 +96,13 @@
 		  	    <el-table-column
 		  	      label="商品SKU"
 		  	    >
-		  	      <template scope="scope">{{ scope.row.skuCode }}</template>
+		  	      <template scope="scope">{{ scope.row.address }}</template>
 		  	    </el-table-column>
 
 		  	    <el-table-column
-		  	      label="税率"
+		  	      label="库存数量"
 		  	    >
-		  	      <template scope="scope">{{ scope.row.taxRate }}</template>
-		  	    </el-table-column>
-
-		  	    <el-table-column
-		  	      label="含税价格"
-		  	    >
-		  	      <template scope="scope">{{ scope.row.price }}</template>
-		  	    </el-table-column>
-
-		  	    <el-table-column
-		  	      label="不含税价格"
-		  	    >
-		  	      <template scope="scope">{{ scope.row.priceNoTax }}</template>
+		  	      <template scope="scope">{{ scope.row.name }}</template>
 		  	    </el-table-column>
 		  	</el-table>
 	
@@ -124,71 +112,13 @@
 				  :page-size="limit"
 				  :current-page="currentPage"
 				  @current-change="handleCurrentChange"
-				  :total="product.total">
+				  :total="total">
 				</el-pagination>
 
 		  </el-col>
 		</el-row>
 	</div>
 </template>
-
-<style lang="less">
-.select_pro_frame {
-	.el-input__inner {
-		width: 75%;
-		height: 30px;
-		min-width: 170px;
-	}
-
-	.el-form-item{
-		margin-bottom: 10px;
-	}
-
-	.el-col-3 {
-		text-align: right;
-	}
-
-	.el-col-4{
-		text-align: right;
-	}
-
-	.main{
-		height: 400px;
-		
-
-		.categories{
-			height: 100%;
-
-			.title {
-				background: #eef1f6;
-				line-height: 40px;
-				padding-left: 15px;
-				color: #1f2d3d;
-				text-align: left;
-			}
-			.el-tree {
-				height: 100%;
-				overflow-y: auto;
-			}
-		}
-
-		.tab {
-			padding: 10px;
-			height: 442px;
-			border: 1px solid #d1dbe5;
-			border-left: none;
-
-			.el-table td, .el-table th {
-				height: 35px;
-			}
-
-			.el-pagination {
-				margin-top: 7px;
-			}
-		}
-	}
-}
-</style>
 
 <script>
 export default {
@@ -200,9 +130,9 @@ export default {
 		},
 
 		//	商品列表
-		product: {
-			type: Object,
-			default: {}
+		tabData: {
+			type: Array,
+			default: []
 		}
 	},
 	data () {
@@ -215,12 +145,13 @@ export default {
 			},
 			
       defaultProps: {
-        children: 'childCategoryList',
-        label: 'categoryName'
+        children: 'children',
+        label: 'label'
       },
       multipleSelection: [],
       limit: 10,					//	分页条数
       currentPage: 1,				//	当前页
+      total: 100,
       maxHeight: 422
 		}
 	},

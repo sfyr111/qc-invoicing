@@ -29,6 +29,7 @@ import AddPurchaseOrder from './purchase/AddPurchaseOrder'
 import AddReturnOrder from './purchase/AddReturnOrder'
 import StorageInputDetails from './storage/StorageInputDetails'
 import StorageOutputDetails from './storage/StorageOutputDetails'
+import AddStorageInput from './storage/AddStorageInput'
 
 const components = {
   Main,
@@ -61,7 +62,8 @@ const components = {
   AddPurchaseOrder,
   AddReturnOrder,
   StorageInputDetails,
-  StorageOutputDetails
+  StorageOutputDetails,
+  AddStorageInput
 };
 
 export default components;

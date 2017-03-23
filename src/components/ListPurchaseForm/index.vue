@@ -78,6 +78,7 @@
       	  </el-form-item>
   	    </el-col>
   	    <el-col :span="6" class="btn">
+            <el-button type="info" @click="upload">导入采购单</el-button>
   	    	  <el-button type="primary" @click="onSubmit">查询</el-button>
   	    	  <el-button type="info" @click="addPurchaseOrder">新建采购单</el-button>
   	    </el-col>
@@ -193,6 +194,11 @@ export default {
     //  新增采购单
     addPurchaseOrder () {
       this.$emit('add-purchase-order')
+    },
+
+    //  批量上传
+    upload () {
+      this.$emit('upload-file')
     }
 	}
 }

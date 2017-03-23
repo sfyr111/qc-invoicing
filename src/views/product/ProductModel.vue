@@ -11,7 +11,8 @@
         label="供应商价格信息"
         name="second">
         <product-model-price
-          :product-id="productId">
+          :product-id="productId"
+          @price-suc="priceSuc">
         </product-model-price>
       </el-tab-pane>
     </el-tabs>
@@ -67,6 +68,11 @@
         }
         this.addSuc = true
       },
+      priceSuc (resp) {
+      	this.$router.push({
+          name: 'productList',
+        })
+      }
     }
   }
 </script>
