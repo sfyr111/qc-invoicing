@@ -85,7 +85,7 @@
       <!--<el-button type="primary" @click="importSalePrice()" icon="upload2">批量导入销售价格</el-button>-->
       <el-button type="primary" @click="importProduct()" icon="upload2">批量导入商品</el-button>
       <el-button type="primary" :loading="isSync" @click="syncProduct()" icon="upload">同步至京东</el-button>
-      <!--<el-button type="primary" @click="exportProduct()" icon="share">批量导出商品信息</el-button>-->
+      <el-button type="primary" @click="exportProduct()" icon="share">导出商品列表</el-button>
     </el-button-group>
     <el-dialog class="up_box" :title="title" v-model="dialogFormVisible">
       <el-upload
@@ -235,7 +235,7 @@
         util.getMyrequest(opt)
       },
       exportProduct () {
-
+        window.open(configUrl.exportProductList.dataUrl)
       },
       handleAvatarSuccess (response, file, fileList) {
         if (!response.success) {

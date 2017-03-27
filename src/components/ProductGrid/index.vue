@@ -16,6 +16,14 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="京东商品编码"
+        width="180"
+        align="center">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.jdSkuCode }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="商品名称"
         width="180"
         align="center">
