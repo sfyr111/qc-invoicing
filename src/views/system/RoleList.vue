@@ -15,24 +15,54 @@
       @current-change="changePage">
     </el-pagination>
 
-    <el-dialog title="角色" v-model="dialogVisible" :show-close="true" size="tiny">
-      <el-form :model="ruleForm" ref="ruleForm" :rules="rules">
-        <el-form-item label="角色名" label-width="100px" prop="roleName">
-          <el-input v-model="ruleForm.roleName"></el-input>
+    <el-dialog
+      title="角色"
+      v-model="dialogVisible"
+      :show-close="true"
+      size="tiny">
+      <el-form
+        :model="ruleForm"
+        ref="ruleForm"
+        :rules="rules">
+        <el-form-item
+          label="角色名"
+          label-width="100px"
+          prop="roleName">
+          <el-input v-model="ruleForm.roleName" :readonly="edit"></el-input>
         </el-form-item>
-        <el-form-item label="是否有效" label-width="100px">
-          <el-select v-model="ruleForm.isValid" placeholder="请选择性别">
-            <el-option v-for="isValid in isValids" :key="isValid.value" :label="isValid.text" :value="isValid.value"></el-option>
+        <el-form-item
+          label="是否有效"
+          label-width="100px">
+          <el-select
+            v-model="ruleForm.isValid"
+            placeholder="请选择性别">
+            <el-option
+              v-for="isValid in isValids"
+              :key="isValid.value"
+              :label="isValid.text"
+              :value="isValid.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="备注" label-width="100px">
           <el-input v-model="ruleForm.memo"></el-input>
         </el-form-item>
-        <el-tree ref="tree" :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[2,5,6]" :props="defaultProps">
+        <el-tree
+          ref="tree"
+          :data="funTree"
+          show-checkbox
+          node-key="id"
+          label="text"
+          empty-text="努力加载中......"
+          expand-on-click-node
+          :default-checked-keys="funList"
+          :props="defaultProps">
         </el-tree>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="roleSave('ruleForm')" :loading="hasSubmit">保存</el-button>
+        <el-button
+          type="primary"
+          @click="roleSave('ruleForm')"
+          :loading="hasSubmit">保存</el-button>
       </span>
     </el-dialog>
   </div>
@@ -48,15 +78,19 @@
     },
     computed: {
       ...mapGetters({
-      	roleList: 'getRoleList'
+      	roleList: 'getRoleList',
+        funTree: 'getFunTree',
+        funList: 'getFunList',
       })
     },
     data() {
     	return {
+    		// 搜索form
     		form: {
           roleId: '',
           roleName: '',
         },
+        // 角色保存form
         ruleForm: {
           roleId: '',
           roleName: '',
@@ -83,45 +117,11 @@
         pageSize: 10,
         total: 0,
         loadingData: false,
-        data2: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
         defaultProps: {
           children: 'children',
           label: 'label'
-        }
+        },
+        edit: false
       }
     },
     created() {
@@ -203,7 +203,10 @@
         this.$store.dispatch('roleDel', opt)
       },
       dialogOpen() {
+      	this.$store.dispatch('clrFunList')
+        this.getFunTree()
         this.dialogVisible=true
+        this.edit=false
       },
       roleEdit(row) {
         this.ruleForm.roleId=row.roleId || ''
@@ -211,55 +214,99 @@
         this.ruleForm.isValid=row.isValid || ''
         this.ruleForm.memo=row.memo || ''
         this.dialogOpen()
+        this.getFunList(row.roleId)
+        this.edit=true
       },
       roleSave(formName) {
       	let checked=this.$refs.tree.getCheckedNodes();
-      	console.log(checked)
-//        if (this.hasSubmit) {
-//          return
-//        }
-//        let _this = this
-//        let data = {
-//          roleId:this.ruleForm.roleId || '',
-//          roleName:this.ruleForm.roleName || '',
-//          isValid:this.ruleForm.isValid || '',
-//          memo:this.ruleForm.memo || '',
-//        }
-//        let url = configUrl.roleSave.dataUrl
-//        this.$refs[formName].validate((valid) => {
-//          if (valid) {
-//            _this.hasSubmit = true
-//            let opt = {
-//              url: url,
-//              type: 'post',
-//              data: data,
-//              success: function (resp) {
-//                _this.hasSubmit = false
-//                _this.$message({
-//                  showClose: true,
-//                  message: resp.msg,
-//                  type: 'success'
-//                });
-//                _this.dialogVisible=false
-//                _this.initGrid()
-//              },
-//              fail: function (resp) {
-//                _this.hasSubmit=false
-//                _this.$message({
-//                  showClose: true,
-//                  message: resp.msg,
-//                  type: 'error'
-//                });
-//                console.log(resp)
-//              }
-//            };
-//            this.$store.dispatch('roleSave', opt)
-//          } else {
-//            console.log('error submit!!');
-//            return false;
-//          }
-//        });
-      }
+      	let checkedIds = checked.reduce(function (pre, item) {
+          return pre.concat(item.id)
+        }, [])
+        if (this.hasSubmit) {
+          return
+        }
+        let _this = this
+        let data = {
+          roleId:this.ruleForm.roleId || '',
+          roleName:this.ruleForm.roleName || '',
+          isValid:this.ruleForm.isValid || '',
+          memo:this.ruleForm.memo || '',
+          funcs: checkedIds,
+        }
+        let url = configUrl.roleSave.dataUrl
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            _this.hasSubmit = true
+            let opt = {
+              url: url,
+              type: 'post',
+              data: data,
+              success: function (resp) {
+                _this.hasSubmit = false
+                _this.$message({
+                  showClose: true,
+                  message: resp.msg,
+                  type: 'success'
+                });
+                _this.dialogVisible=false
+                _this.initGrid()
+              },
+              fail: function (resp) {
+                _this.hasSubmit=false
+                _this.$message({
+                  showClose: true,
+                  message: resp.msg,
+                  type: 'error'
+                });
+                console.log(resp)
+              }
+            };
+            this.$store.dispatch('roleSave', opt)
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      getFunTree() {
+      	let _this = this
+      	let opt = {
+      		url: configUrl.getFuncTree.dataUrl,
+          type: 'get',
+          success: function (resp) {
+
+          },
+          fail: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            })
+          }
+        }
+        this.$store.dispatch('funTree', opt)
+      },
+      getFunList (roleId) {
+        let _this = this
+        let opt = {
+          url: configUrl.getFuncList.dataUrl,
+          type: 'get',
+          data: {
+            roleId: roleId
+          },
+          success: function (resp) {
+
+          },
+          fail: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            })
+          }
+        }
+        this.$store.dispatch('funList', opt)
+      },
     }
   }
 </script>

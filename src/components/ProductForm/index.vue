@@ -81,11 +81,11 @@
       </el-form-item>
     </el-form>
     <el-button-group>
-      <el-button type="primary" @click="addProduct()" icon="plus">新增</el-button>
+      <el-button type="primary" @click="addProduct()" icon="plus" v-if="funcList.indexOf('1040101')>-1">新增</el-button>
       <!--<el-button type="primary" @click="importSalePrice()" icon="upload2">批量导入销售价格</el-button>-->
-      <el-button type="primary" @click="importProduct()" icon="upload2">批量导入商品</el-button>
+      <el-button type="primary" @click="importProduct()" icon="upload2" v-if="funcList.indexOf('1040105')>-1">批量导入商品</el-button>
       <el-button type="primary" :loading="isSync" @click="syncProduct()" icon="upload">同步至京东</el-button>
-      <el-button type="primary" @click="exportProduct()" icon="share">导出商品列表</el-button>
+      <el-button type="primary" @click="exportProduct()" icon="share" v-if="funcList.indexOf('1040107')>-1">导出商品列表</el-button>
     </el-button-group>
     <el-dialog class="up_box" :title="title" v-model="dialogFormVisible">
       <el-upload
@@ -181,6 +181,7 @@
         disabledThird: true,
         hasLoadingThird: false,
         isSync: false,
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

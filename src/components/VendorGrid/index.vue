@@ -134,11 +134,13 @@
         <template scope="scope">
           <el-button
             size="small"
-            @click="handleEdit(scope.$index, scope.row)">编辑&查看</el-button>
+            @click="handleEdit(scope.$index, scope.row)"
+            v-if="funcList.indexOf('1020102')>-1">编辑&查看</el-button>
           <el-button
             size="small"
             type="danger"
-            @click="handleDelete(scope.row)">删除</el-button>
+            @click="handleDelete(scope.row)"
+            v-if="funcList.indexOf('1020103')>-1">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -159,7 +161,7 @@
     },
     data() {
       return {
-
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

@@ -14,7 +14,7 @@
         </el-col>
         <el-col :span="12">
           <el-button type="primary" @click="onSubmit" :loading="loadingData" icon="search">查询</el-button>
-          <el-button type="primary" @click="dialogOpen" icon="plus">新建部门</el-button>
+          <el-button type="primary" @click="dialogOpen" icon="plus" v-if="funcList.indexOf('1010401')>-1">新建部门</el-button>
         </el-col>
       </el-form-item>
     </el-form>
@@ -33,7 +33,8 @@
         form: {
           deptId: '',
           deptName: '',
-        }
+        },
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

@@ -129,7 +129,8 @@
         <template scope="scope">
           <el-button
             size="small"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click="handleEdit(scope.$index, scope.row)"
+            v-if="funcList.indexOf('1010102')>-1">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -149,7 +150,7 @@
     },
     data() {
       return {
-
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

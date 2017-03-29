@@ -19,7 +19,7 @@
         </el-col>
         <el-col :span="6">
           <el-button type="primary" @click="onSubmit" :loading="loadingData" icon="search">查询</el-button>
-          <el-button type="primary" @click="dialogOpen" icon="plus">新建用户</el-button>
+          <el-button type="primary" @click="dialogOpen" icon="plus" v-if="funcList.indexOf('1010101')>-1">新建用户</el-button>
         </el-col>
       </el-form-item>
     </el-form>
@@ -39,7 +39,8 @@
           userName: '',
           deptId: '',
           selfPhone: '',
-        }
+        },
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

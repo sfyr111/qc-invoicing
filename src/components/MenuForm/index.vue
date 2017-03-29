@@ -40,7 +40,7 @@
         </el-col>
         <el-col :span="6">
           <el-button type="primary" @click="onSubmit" :loading="loadingData" icon="search">查询</el-button>
-          <el-button type="primary" @click="dialogOpen" icon="plus">新建菜单</el-button>
+          <el-button type="primary" @click="dialogOpen" icon="plus" v-if="funcList.indexOf('1010301')>-1">新建菜单</el-button>
         </el-col>
       </el-form-item>
     </el-form>
@@ -62,7 +62,8 @@
           isMenu: '',
           isValid: '',
           accessType: '',
-        }
+        },
+        funcList: JSON.parse(sessionStorage.getItem('funcList'))
       }
     },
     methods: {

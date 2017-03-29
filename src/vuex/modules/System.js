@@ -7,6 +7,8 @@ const state = {
   menuList: [],
   roleList: [],
   userNav: [],
+  funTree: [],
+  funList: [],
 };
 
 // getters
@@ -16,6 +18,8 @@ const getters = {
   getMenuList: state => state.menuList,
   getRoleList: state => state.roleList,
   getUserNav: state => state.userNav,
+  getFunTree: state => state.funTree,
+  getFunList: state => state.funList,
 }
 
 const actions = {
@@ -139,7 +143,7 @@ const actions = {
       success: opt.success,
       fail: opt.fail
     }
-    util.getMyrequest(params).then(function (resp) {
+    util.getMyCompRequest(params).then(function (resp) {
 
     })
   },
@@ -168,6 +172,35 @@ const actions = {
       commit(types.USER_NAV, resp.children || [])
     })
   },
+  funTree ({commit}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+    state.funTree=[]
+    util.getMyrequest(params).then(function (resp) {
+      commit(types.FUN_TREE, resp.data || [])
+    })
+  },
+  funList ({commit}, opt) {
+    let params = {
+      type: opt.type,
+      url: opt.url,
+      data: opt.data,
+      success: opt.success,
+      fail: opt.fail
+    }
+    state.funList=[]
+    util.getMyrequest(params).then(function (resp) {
+      commit(types.FUN_LIST, resp.data || [])
+    })
+  },
+  clrFunList ({commit}, opt) {
+    state.funList=[]
+  },
 }
 
 const mutations = {
@@ -185,6 +218,12 @@ const mutations = {
   },
   [types.USER_NAV] (state, data) {
     state.userNav = data
+  },
+  [types.FUN_TREE] (state, data) {
+    state.funTree = data
+  },
+  [types.FUN_LIST] (state, data) {
+    state.funList = data
   },
 }
 

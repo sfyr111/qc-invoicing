@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+  import util from '../../utils/util'
   import configUrl from '../../data/configUrl'
   import { mapGetters } from 'vuex'
   export default {
@@ -18,6 +19,7 @@
     },
     created() {
      	this.navInit()
+      this.funcInit()
     },
     methods: {
       navInit() {
@@ -41,6 +43,29 @@
           }
         }
         this.$store.dispatch('userNav', opt);
+      },
+      funcInit(){
+        let _this = this
+        let opt = {
+          url: configUrl.getFuncList.dataUrl,
+          type: 'get',
+          data: {
+            roleId: window.user ? window.user.roleId : '1'
+          },
+          success: function (resp) {
+            sessionStorage.clear();
+          	let funcList = resp.data
+            sessionStorage.setItem('funcList', JSON.stringify(funcList));
+          },
+          fail: function (resp) {
+            _this.$message({
+              showClose: true,
+              message: resp.msg,
+              type: 'error'
+            });
+          }
+        }
+        util.getMyrequest(opt);
       }
     },
     computed:{

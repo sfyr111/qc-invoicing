@@ -17,13 +17,13 @@
     <el-dialog title="菜单" v-model="dialogVisible" :show-close="true" size="tiny">
       <el-form :model="ruleForm" ref="ruleForm" :rules="rules">
         <el-form-item label="功能编号" label-width="100px" prop="functionId">
-          <el-input v-model="ruleForm.functionId"></el-input>
+          <el-input v-model="ruleForm.functionId" :readonly="edit"></el-input>
         </el-form-item>
         <el-form-item label="功能名称" label-width="100px" prop="functionName">
           <el-input v-model="ruleForm.functionName"></el-input>
         </el-form-item>
         <el-form-item label="上级编号" label-width="100px">
-          <el-input v-model="ruleForm.parentFunctionId"></el-input>
+          <el-input v-model="ruleForm.parentFunctionId" :readonly="edit"></el-input>
         </el-form-item>
 
         <el-form-item label="功能级别" label-width="100px">
@@ -135,7 +135,8 @@
         pageNo: 1,
         pageSize: 10,
         total: 0,
-        loadingData: false
+        loadingData: false,
+        edit: false
       }
     },
     created() {
@@ -234,6 +235,7 @@
       },
       dialogOpen() {
         this.dialogVisible=true
+        this.edit=false
       },
       menuEdit(row) {
         this.ruleForm.functionId=row.functionId || ''
@@ -247,6 +249,7 @@
         this.ruleForm.accessType=row.accessType || ''
         this.ruleForm.memo=row.memo || ''
         this.dialogOpen()
+        this.edit=true
       },
       menuSave(formName) {
         if (this.hasSubmit) {

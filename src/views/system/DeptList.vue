@@ -16,7 +16,7 @@
     <el-dialog title="部门" v-model="dialogVisible" :show-close="true" size="tiny">
       <el-form :model="ruleForm" ref="ruleForm" :rules="rules">
         <el-form-item label="部门代码" label-width="100px" prop="deptCode">
-          <el-input v-model="ruleForm.deptCode"></el-input>
+          <el-input v-model="ruleForm.deptCode" :readonly="edit"></el-input>
         </el-form-item>
         <el-form-item label="部门名称" label-width="100px" prop="deptName">
           <el-input v-model="ruleForm.deptName"></el-input>
@@ -83,7 +83,8 @@
         pageSize: 10,
         total: 0,
         loadingData: false,
-        dialogVisible: false
+        dialogVisible: false,
+        edit: false
       }
     },
     created() {
@@ -145,6 +146,7 @@
       },
       dialogOpen() {
       	this.dialogVisible=true
+        this.edit=false
       },
       deptDel(roleId) {
         if (this.loadingData) {
@@ -179,6 +181,7 @@
         this.ruleForm.upDeptId=row.upDeptId
         this.ruleForm.memo=row.memo
         this.dialogOpen()
+        this.edit=true
       },
       saveDept(formName) {
         if (this.hasSubmit) {

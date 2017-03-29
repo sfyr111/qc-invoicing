@@ -26,7 +26,7 @@
         :on-success="uploadSuccess"
         :on-error="uploadError"
         class="upload-demo"
-        action="http://192.168.16.161:8080/qc-invoicing/import/purchaseOrder"
+        :action="uploadUrl"
         :on-change="fileUpload"
         :file-list="fileList">
         <el-button size="small" type="primary">点击上传</el-button>
@@ -65,7 +65,8 @@ export default {
       input: '',
       dialogVisible: false,
       fileList: [],               //  批量上传类型
-      acceptType: '.xlsx' || '.xls'                       
+      acceptType: '.xlsx' || '.xls',
+      uploadUrl: configUrl.importPurchaseOrder.dataUrl                
 		}
 	},
 	components: {

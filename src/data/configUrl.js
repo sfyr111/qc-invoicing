@@ -1,5 +1,5 @@
-let devRootPath = 'http://192.168.16.161:8080/qc-invoicing/';
-let proRootPath = 'http://eoms.17cai.com:8081/qc-invoicing/';
+let devRootPath = 'http://192.168.16.210:9080/qc-invoicing/';
+let proRootPath = 'http://eoms.17cai.com/qc-invoicing/';
 let rootPath = process.env.NODE_ENV === "production" ? proRootPath : devRootPath;
 let imgPath = process.env.NODE_ENV === "production" ? "http://jl.17cai.com/static/img/" : "http://127.0.0.1/static/img/";
 const configUrl = {
@@ -15,6 +15,10 @@ const configUrl = {
   // 批量导入商品
   importProduct: {
     dataUrl: rootPath + 'import/sku'
+  },
+  // 导出商品列表
+  exportProductList: {
+    dataUrl: rootPath + 'import/exportProduct'
   },
   // 修改产品
   productEdit: {
@@ -164,6 +168,14 @@ const configUrl = {
   roleDel: {
     dataUrl: rootPath + 'powermgr_role/powerroledele'
   },
+  // 获取权限树
+  getFuncTree: {
+    dataUrl: rootPath + 'powermgr_role/powerrolemenus'
+  },
+  // 获取角色权限
+  getFuncList: {
+    dataUrl: rootPath + 'powermgr_role/powerrolebyid'
+  },
   // 登出
   logOut: {
     dataUrl: rootPath + 'powermgr/logout'
@@ -183,7 +195,13 @@ const configUrl = {
   //  查询库存列表
   storageList: {
     dataUrl: rootPath + 'stock/list'
+  },
+
+  //  采购列表导入采购单
+  importPurchaseOrder: {
+    dataUrl: rootPath + 'import/purchaseOrder'
   }
+
 };
 
 export default configUrl

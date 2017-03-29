@@ -18,7 +18,10 @@
         <el-form-item label="用户姓名" label-width="100px" prop="userName">
           <el-input v-model="ruleForm.userName"></el-input>
         </el-form-item>
-        <el-form-item label="密码" label-width="100px" prop="password">
+        <el-form-item v-if="!edit" label="密码" label-width="100px" prop="password">
+          <el-input type="password" v-model="ruleForm.password"></el-input>
+        </el-form-item>
+        <el-form-item v-if="edit" label="密码" label-width="100px">
           <el-input type="password" v-model="ruleForm.password"></el-input>
         </el-form-item>
         <el-form-item label="用户昵称" label-width="100px">
@@ -153,7 +156,8 @@
           roleId: [
             { required: true, message: '请选择角色', trigger: 'blur' }
           ]
-        }
+        },
+        edit: false
       }
     },
     created () {
@@ -253,6 +257,7 @@
         this.$store.dispatch('deptList', opt)
       },
       dialogOpen() {
+      	this.edit=false
       	this.dialogVisible=true
       },
       saveUser(formName) {
@@ -321,6 +326,7 @@
         this.remoteRole(true)
         this.ruleForm.roleId=row.roleId
         this.dialogOpen()
+        this.edit=true
       }
     }
   }

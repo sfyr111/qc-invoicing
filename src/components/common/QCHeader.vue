@@ -22,7 +22,7 @@
   export default {
     data () {
     	return {
-    		username: 12
+    		username: window.user ? window.user.userName : '未名'
       }
     },
     methods: {
